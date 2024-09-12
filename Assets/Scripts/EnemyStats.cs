@@ -7,13 +7,16 @@ using UnityEngine.Serialization;
 [Serializable]
 public struct EnemyStats
 {
+    public int level;
     public int combat;
     public int mind;
     public int resistance;
-    public int health;
-    public DiceAmount initiative;
-    public int mana;
+    public Dice healthDice;
+    public Dice initiativeDice;
+    public Dice manaDice;
     public int attacks;
     public int magicResistance;
-    public int defense;
+    [Header("Equipment")]
+    public Weapon weapon;
+    public Armor armor;
 }

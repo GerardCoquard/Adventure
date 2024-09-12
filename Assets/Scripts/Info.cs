@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct Room
+public struct Info
 {
-    public List<EnemyData> enemies;
+    public string name;
+    public Sprite icon;
 }

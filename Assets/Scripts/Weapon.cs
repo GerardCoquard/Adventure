@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct Room
+public struct Weapon
 {
-    public List<EnemyData> enemies;
+    public int damage;
+    public int threat;
+    public Info info;
 }
