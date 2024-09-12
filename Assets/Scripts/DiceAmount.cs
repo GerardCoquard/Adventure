@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public struct Initiative
+[Serializable]
+public struct DiceAmount
 {
     public int amount;
     public Dice dice;
