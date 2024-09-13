@@ -45,7 +45,6 @@ public class LevelManager : MonoBehaviour
         {
             PassLevel();
         }
-            
         else
         {
             _currentRoom++;
@@ -58,7 +57,6 @@ public class LevelManager : MonoBehaviour
         _currentRoom = 0;
         //Set player characters to full HP again
         //Reset abilities cooldown
-        //BattleManager do that
         LoadRoom();
     }
 
@@ -73,6 +71,7 @@ public class LevelManager : MonoBehaviour
             indx++;
         }
         //BattleManager.LoadPlayerCharacters();
+        OnRoomLoaded?.Invoke();
     }
 
     private void LoadDialogue()
