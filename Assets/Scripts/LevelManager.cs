@@ -7,6 +7,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static Action OnRoomLoaded;
+    public static Action OnLevelStarted;
     public static Action OnLevelEnded;
     
     [SerializeField] private List<Level> _levels;
@@ -17,6 +18,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         LevelUpManager.OnLevelUpEnded += LoadDialogue;
+        DialogueManager.OnDialogueEnded += LoadLevel;
         
         if (_firstDialogue != null)
             DialogueManager.instance.LoadDialogue(_firstDialogue);
@@ -30,7 +32,7 @@ public class LevelManager : MonoBehaviour
         OnLevelEnded = null;
     }
 
-    private void LoadNextLevel()
+    private void PassLevel()
     {
         _currentLevel++;
         _currentRoom = 0;
@@ -41,7 +43,7 @@ public class LevelManager : MonoBehaviour
     {
         if (_levels[_currentLevel].rooms.Count >= _currentRoom + 1)
         {
-            OnLevelEnded?.Invoke();
+            PassLevel();
         }
             
         else
@@ -75,7 +77,13 @@ public class LevelManager : MonoBehaviour
 
     private void LoadDialogue()
     {
-        
+        DialogueManager.instance.LoadDialogue(_levels[_currentLevel].endDialogue);
+    }
+    
+    private void LoadLevel()
+    {
+        OnLevelStarted?.Invoke();
+        LoadRoom();
     }
     
     public int GetCurrentLevel()

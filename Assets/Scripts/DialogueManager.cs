@@ -20,6 +20,11 @@ public class DialogueManager : MonoBehaviour
 
     public void LoadDialogue(Dialogue dialogue)
     {
-        
+        EndDialogue();
+    }
+
+    private void EndDialogue()
+    {
+        OnDialogueEnded?.Invoke();
     }
 }
