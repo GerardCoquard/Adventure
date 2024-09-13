@@ -261,8 +261,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyWidth: 5
   playerWidth: -5
-  lateralSpacing: 1.5
-  verticalSpacing: 1
+  verticalSpacing: 1.5
+  lateralSpacing: 1
 --- !u!1 &1993592119
 GameObject:
   m_ObjectHideFlags: 0

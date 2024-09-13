@@ -9,8 +9,8 @@ public class GridManager : MonoBehaviour
     
     public float enemyWidth;
     public float playerWidth;
-    public float lateralSpacing;
     public float verticalSpacing;
+    public float lateralSpacing;
 
     private void Awake()
     {
@@ -21,27 +21,19 @@ public class GridManager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + new Vector3(enemyWidth,20,0),transform.position + new Vector3(enemyWidth,-20,0));
-        for (int i = 0; i < 3; i++)
+        List<Vector2> pointsEnemy = GetEnemyPositions(5);
+        foreach (Vector2 point in pointsEnemy)
         {
-            int multiplier = i % 2 == 0 ? 1 : -1;
-            
-            Vector2 pointDown = new Vector2(enemyWidth + multiplier * verticalSpacing, -lateralSpacing * i);
-            Gizmos.DrawWireSphere(pointDown,0.2f);
-            Vector2 pointUp = new Vector2(enemyWidth + multiplier * verticalSpacing, lateralSpacing * i);
-            Gizmos.DrawWireSphere(pointUp,0.2f);
+            Gizmos.DrawWireSphere(point,0.2f);
         }
         
         
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position + new Vector3(playerWidth,20,0),transform.position + new Vector3(playerWidth,-20,0));
-        for (int i = 0; i < 2; i++)
+        List<Vector2> pointsPlayer = GetPlayerPositions(3);
+        foreach (Vector2 point in pointsPlayer)
         {
-            int multiplier = i % 2 == 0 ? 1 : -1;
-            
-            Vector2 pointDown = new Vector2(playerWidth + multiplier * verticalSpacing, -lateralSpacing * i);
-            Gizmos.DrawWireSphere(pointDown,0.2f);
-            Vector2 pointUp = new Vector2(playerWidth + multiplier * verticalSpacing, lateralSpacing * i);
-            Gizmos.DrawWireSphere(pointUp,0.2f);
+            Gizmos.DrawWireSphere(point,0.2f);
         }
     }
     
@@ -49,23 +41,27 @@ public class GridManager : MonoBehaviour
     {
         List<Vector2> points = new List<Vector2>();
         bool even = amountOfActors % 2 == 0;
-        float firstPoint = amountOfActors / 2;
-        if (even) firstPoint -= lateralSpacing / 2;
+        int verticalMultiplier = -1;
+        float verticalOffset = 0;
+
+        if (!even)
+            points.Add(new Vector2(enemyWidth - lateralSpacing, 0));
+        else
+        {
+            verticalMultiplier *= -1;
+            verticalOffset = verticalSpacing / 2;
+        }
         
         for (int i = 0; i < amountOfActors/2; i++)
         {
-            float distanceFromCenter = firstPoint - lateralSpacing * i;
-            int multiplier = i % 2 == 0 ? 1 : -1;
+            Vector2 pointUp = new Vector2(enemyWidth + verticalMultiplier * -lateralSpacing, verticalSpacing * (i+1) - verticalOffset);
+            Vector2 pointDown = new Vector2(enemyWidth + verticalMultiplier * -lateralSpacing, -(verticalSpacing * (i+1) - verticalOffset));
             
-            Vector2 pointDown = new Vector2(enemyWidth + multiplier * verticalSpacing, -distanceFromCenter);
-            Vector2 pointUp = new Vector2(enemyWidth + multiplier * verticalSpacing, distanceFromCenter);
-            
-            points.Add(pointDown);
             points.Add(pointUp);
-        }
-        if(!even) points.Add(new Vector2(enemyWidth - verticalSpacing, 0));
+            points.Add(pointDown);
 
-        points.Reverse();
+            verticalMultiplier *= -1;
+        }
         
         return points;
     }
@@ -74,23 +70,29 @@ public class GridManager : MonoBehaviour
     {
         List<Vector2> points = new List<Vector2>();
         bool even = amountOfActors % 2 == 0;
-        float firstPoint = amountOfActors / 2;
-        if (even) firstPoint -= lateralSpacing / 2;
+        int verticalMultiplier = 1;
+        float verticalOffset = 0;
+
+        if (!even)
+            points.Add(new Vector2(playerWidth + lateralSpacing, 0));
+        else
+        {
+            verticalMultiplier *= -1;
+            verticalOffset = verticalSpacing / 2;
+        }
         
         for (int i = 0; i < amountOfActors/2; i++)
         {
-            float distanceFromCenter = firstPoint - lateralSpacing * i;
-            int multiplier = i % 2 == 0 ? 1 : -1;
+            Vector2 pointUp = new Vector2(playerWidth + verticalMultiplier * -lateralSpacing, verticalSpacing * (i+1) - verticalOffset);
+            Vector2 pointDown = new Vector2(playerWidth + verticalMultiplier * -lateralSpacing, -(verticalSpacing * (i+1) - verticalOffset));
             
-            Vector2 pointDown = new Vector2(playerWidth + multiplier * verticalSpacing, -distanceFromCenter);
-            Vector2 pointUp = new Vector2(playerWidth + multiplier * verticalSpacing, distanceFromCenter);
-            
-            points.Add(pointDown);
             points.Add(pointUp);
-        }
-        if(!even) points.Add(new Vector2(playerWidth - verticalSpacing, 0));
+            points.Add(pointDown);
 
-        points.Reverse();
+            verticalMultiplier *= -1;
+        }
+        
+        return points;
         
         return points;
     }
