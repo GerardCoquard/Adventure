@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Utilities : MonoBehaviour
+public static class Utilities
 {
-    
+    public static int[] GetDiceThrow(DiceAmount diceAmount)
+    {
+        int[] results = new int[diceAmount.amount];
+        for (int i = 0; i < results.Length; i++)
+        {
+            int result = Random.Range(1, (int)diceAmount.dice);
+            results[i] = result;
+        }
+        return results;
+    }
 }
 
 public enum Dice

@@ -22,8 +22,8 @@ public class LevelManager : MonoBehaviour
         
         if (_firstDialogue != null)
             DialogueManager.instance.LoadDialogue(_firstDialogue);
-        else
-            LoadRoom();
+        // else
+        //     LoadRoom();
     }
 
     private void OnDestroy()
