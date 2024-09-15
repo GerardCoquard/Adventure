@@ -26,6 +26,11 @@ public class LevelManager : MonoBehaviour
         //     LoadRoom();
     }
 
+    private void Update()
+    {
+        Debug.Log(Utilities.Roll(Dice.D8));
+    }
+
     private void OnDestroy()
     {
         OnRoomLoaded = null;

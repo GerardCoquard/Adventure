@@ -9,10 +9,15 @@ public static class Utilities
         int[] results = new int[diceAmount.amount];
         for (int i = 0; i < results.Length; i++)
         {
-            int result = Random.Range(1, (int)diceAmount.dice);
+            int result = Random.Range(1, (int)diceAmount.dice+1);
             results[i] = result;
         }
         return results;
+    }
+
+    public static int Roll(Dice dice)
+    {
+        return Random.Range(1, (int)dice+1);
     }
 }
 
