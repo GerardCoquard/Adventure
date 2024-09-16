@@ -4,25 +4,23 @@ using UnityEngine;
 
 public abstract class Actor : MonoBehaviour
 {
-    //TO DELETE
-    public IActorInput actorInput;
-    public Transform turnIndicator;
-    public int initiative;
-    //TO DELETE
-
     protected Equipment _equipment;
+    protected ActorVisuals _visuals;
+    
+    protected string _actorName;
+    
     protected int _health;
     protected int _mana;
     protected int _lastHealthAdded;
     protected int _lastManaAdded;
 
+    protected int _currentHealth;
+    protected int _currentMana;
+
     private void Awake()
     {
-        //TO DELETE
-        actorInput = GetComponent<IActorInput>();
-        //TO DELETE
-
         _equipment = GetComponent<Equipment>();
+        _visuals = GetComponentInChildren<ActorVisuals>();
     }
     
     //Getters
@@ -42,30 +40,44 @@ public abstract class Actor : MonoBehaviour
     public abstract int GetAttacks();
 
     public abstract int GetMagicResistance();
+    
+    public abstract void OnDie();
 
-    public virtual int GetMana()
+    public virtual void SetVisuals()
     {
-        return _mana;
+        _visuals.SetName(_actorName);
+        _visuals.SetHealth(_currentHealth, GetMaxHealth());
+        _visuals.SetMana(_currentMana, GetMaxMana());
     }
 
-    public virtual int GetHealth()
+    public virtual void SetTurn(int position)
     {
-        return _health;
+        _visuals.SetTurnPosition(position);
+    }
+
+    public virtual int GetMaxMana()
+    {
+        return _mana;//Add Buffs
+    }
+
+    public virtual int GetMaxHealth()
+    {
+        return _health;//Add Buffs
     }
     
     public virtual DiceAmount GetInitiative()
     {
-        return new DiceAmount(GetCombat(), GetInitiativeDice());
+        return new DiceAmount(GetCombat(), GetInitiativeDice());//Add Buffs
     }
-
+    
     public virtual int GetDamage()
     {
-        return _equipment.GetWeapon().damage;
+        return _equipment.GetWeapon().damage;//Add Buffs
     }
 
     public virtual int GetArmor()
     {
-        return 5 + _equipment.GetArmor().defense;
+        return 5 + _equipment.GetArmor().defense;//Add Buffs
     }
 
     public virtual void AddMana()
@@ -92,6 +104,18 @@ public abstract class Actor : MonoBehaviour
         _health += _lastHealthAdded;
         _lastManaAdded = (int)GetManaDice() + GetMind();
         _mana += _lastManaAdded;
+    }
+    
+    public virtual void ResetActor()
+    {
+        _currentHealth = GetMaxHealth();
+        _currentHealth = GetMaxHealth();
+        SetVisuals();
+    }
+
+    public virtual bool IsAlive()
+    {
+        return _currentHealth > 0;
     }
 
 }

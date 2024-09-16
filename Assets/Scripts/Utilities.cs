@@ -4,15 +4,29 @@ using UnityEngine;
 
 public static class Utilities
 {
-    public static int[] GetDiceThrow(DiceAmount diceAmount)
+    public static int RollWithVisuals(DiceAmount diceAmount)
     {
-        int[] results = new int[diceAmount.amount];
-        for (int i = 0; i < results.Length; i++)
+        int total = 0;
+        
+        for (int i = 0; i < diceAmount.amount; i++)
         {
             int result = Random.Range(1, (int)diceAmount.dice+1);
-            results[i] = result;
+            //Throw Dice Visuals
+            total += result;
         }
-        return results;
+        return total;
+    }
+    
+    public static int Roll(DiceAmount diceAmount)
+    {
+        int total = 0;
+        
+        for (int i = 0; i < diceAmount.amount; i++)
+        {
+            int result = Random.Range(1, (int)diceAmount.dice+1);
+            total += result;
+        }
+        return total;
     }
 
     public static int Roll(Dice dice)

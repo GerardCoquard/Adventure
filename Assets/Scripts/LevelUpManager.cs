@@ -12,9 +12,10 @@ public class LevelUpManager : MonoBehaviour
         LevelManager.OnLevelEnded += CheckLevelUp;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         OnLevelUpEnded = null;
+        LevelManager.OnLevelEnded -= CheckLevelUp;
     }
 
     public void CheckLevelUp()

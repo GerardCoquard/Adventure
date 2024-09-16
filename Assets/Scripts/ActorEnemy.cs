@@ -6,12 +6,14 @@ public class ActorEnemy : Actor
 {
     private EnemyStats _stats;
 
-    public void InitializeActor(EnemyStats stats)
+    public void InitializeActor(EnemyStats stats, string actorName)
     {
         _stats = stats;
+        _actorName = actorName;
         _equipment.SetWeapon(_stats.weapon);
         _equipment.SetArmor(_stats.armor);
         LevelUpActor();
+        ResetActor();
     }
 
     private void LevelUpActor()
@@ -61,5 +63,11 @@ public class ActorEnemy : Actor
     public override int GetMagicResistance()
     {
         return _stats.magicResistance;
+    }
+
+    public override void OnDie()
+    {
+        BattleManager.instance.RemoveActor(this);
+        Destroy(gameObject);
     }
 }

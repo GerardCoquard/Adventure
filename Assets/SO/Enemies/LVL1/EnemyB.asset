@@ -12,3 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8a7611b5b0165468c3aa7f3bdb0fb5, type: 3}
   m_Name: EnemyB
   m_EditorClassIdentifier: 
+  prefab: {fileID: 1241484792094625822, guid: c8904892dcdab0d4c962864d356f1303, type: 3}
+  _name: Enemy B
+  positioningLevel: 1
+  enemyStats:
+    level: 7
+    combat: 2
+    mind: 2
+    resistance: 2
+    healthDice: 10
+    initiativeDice: 12
+    manaDice: 6
+    attacks: 2
+    magicResistance: 2
+    weapon:
+      damage: 1
+      threat: 1
+      info:
+        name: asd
+        icon: {fileID: 0}
+    armor:
+      defense: 2
+      mana: -2
+      threat: -1
+      info:
+        name: asdsdasd
+        icon: {fileID: 0}

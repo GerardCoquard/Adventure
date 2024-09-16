@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,53 +6,70 @@ using UnityEngine;
 public class ActorPlayer : Actor
 {
 
+    private EnemyStats _stats;
+
+    public void InitializeActor(EnemyStats stats, string actorName)
+    {
+        _stats = stats;
+        _actorName = actorName;
+        _equipment.SetWeapon(_stats.weapon);
+        _equipment.SetArmor(_stats.armor);
+        LevelUpActor();
+        ResetActor();
+    }
+
+    private void LevelUpActor()
+    {
+        AddFirstLevel();
+        for (int i = 1; i < _stats.level; i++)
+        {
+            AddLevel();
+        }
+    }
+
     public override int GetCombat()
     {
-        throw new System.NotImplementedException();
+        return _stats.combat;
     }
 
     public override int GetMind()
     {
-        throw new System.NotImplementedException();
+        return _stats.mind;
     }
 
     public override int GetResistance()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override int GetMagicResistance()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override int GetMana()
-    {
-        throw new System.NotImplementedException();
+        return _stats.resistance;
     }
 
     public override Dice GetManaDice()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override int GetHealth()
-    {
-        throw new System.NotImplementedException();
+        return _stats.manaDice;
     }
 
     public override Dice GetHealthDice()
     {
-        throw new System.NotImplementedException();
+        return _stats.healthDice;
     }
 
     public override Dice GetInitiativeDice()
     {
-        throw new System.NotImplementedException();
+        return _stats.initiativeDice;
     }
 
     public override int GetAttacks()
     {
-        throw new System.NotImplementedException();
+        return _stats.attacks;
+    }
+
+    public override int GetMagicResistance()
+    {
+        return _stats.magicResistance;
+    }
+
+    public override void OnDie()
+    {
+        BattleManager.instance.RemoveActor(this);
+        //TO DO
     }
 }

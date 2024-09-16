@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static Action OnDialogueEnded;
     public static DialogueManager instance;
+    
+    public static Action OnDialogueEnded;
+
+    public GameObject dialogueTest;
 
     private void Awake()
     {
         instance = this;
+        dialogueTest.SetActive(false);
     }
 
     private void OnDestroy()
@@ -25,6 +29,13 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        dialogueTest.SetActive(false);
         OnDialogueEnded?.Invoke();
+    }
+
+    IEnumerator DialogueTest()
+    {
+        dialogueTest.SetActive(true);
+        yield return new WaitForSeconds(3);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public static Action OnRoomLoaded;
+    public static Action<List<EnemyData>> OnRoomLoaded;
     public static Action OnLevelStarted;
     public static Action OnLevelEnded;
     
@@ -19,22 +19,23 @@ public class LevelManager : MonoBehaviour
     {
         LevelUpManager.OnLevelUpEnded += LoadDialogue;
         DialogueManager.OnDialogueEnded += LoadLevel;
+        BattleManager.OnBattleEnd += NextRoom;
+        BattleManager.OnPlayerLost += Respawn;
         
         if (_firstDialogue != null)
             DialogueManager.instance.LoadDialogue(_firstDialogue);
-        // else
-        //     LoadRoom();
+        else
+            LoadLevel();
     }
 
-    private void Update()
-    {
-        Debug.Log(Utilities.Roll(Dice.D8));
-    }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
         OnRoomLoaded = null;
         OnLevelEnded = null;
+        LevelUpManager.OnLevelUpEnded -= LoadDialogue;
+        DialogueManager.OnDialogueEnded -= LoadLevel;
+        BattleManager.OnBattleEnd -= NextRoom;
+        BattleManager.OnPlayerLost -= Respawn;
     }
 
     private void PassLevel()
@@ -57,26 +58,16 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void Respawn()
+    public void Respawn()
     {
         _currentRoom = 0;
-        //Set player characters to full HP again
-        //Reset abilities cooldown
-        LoadRoom();
+        LoadLevel();
     }
 
     private void LoadRoom()
     {
         List<EnemyData> enemies = _levels[_currentLevel].rooms[_currentRoom].enemies;
-        List<Vector2> positions = GridManager.instance.GetEnemyPositions(enemies.Count);
-        int indx = 0;
-        foreach (EnemyData enemy in enemies.OrderByDescending(e => e.positioningLevel))
-        {
-            Instantiate(enemy.prefab, positions[indx], Quaternion.identity);
-            indx++;
-        }
-        //BattleManager.LoadPlayerCharacters();
-        OnRoomLoaded?.Invoke();
+        OnRoomLoaded?.Invoke(enemies);
     }
 
     private void LoadDialogue()

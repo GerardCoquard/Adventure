@@ -7,7 +7,7 @@ public class EnemyData : ScriptableObject
 {
     [Header("Visuals")]
     public GameObject prefab;
-    public Info info;
+    public string _name;
     public int positioningLevel;
     [Header("Stats")]
     public EnemyStats enemyStats;

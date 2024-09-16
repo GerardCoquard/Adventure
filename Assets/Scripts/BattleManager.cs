@@ -7,76 +7,163 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance;
-    public List<Actor> battleActors = new List<Actor>();
-    public GameObject turnSprite;
-    private int currentTurn = 0;
-    private void Start()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-        
-        InitBattle();
-    }
     
-    private void Update()
+    public static Action OnBattleEnd;
+    public static Action OnPlayerLost;
+    
+    private List<ActorInput> _battleActors = new List<ActorInput>();
+    private List<Actor> _enemyActors = new List<Actor>();
+    private int _currentTurn;
+    
+    [SerializeField] private Transform _enemiesHolder;
+    [SerializeField] private float _timeToSeeInitiatives;
+    [SerializeField] private GameObject _turnSprite;
+
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            battleActors[currentTurn].actorInput.StartTurn();
-        }
-    }
-    public void InitBattle()
-    {
-        SetUpInitiative();
-        SortActorList();
-        SetUpTurn();
+        instance = this;
     }
 
-    public void NextTurn()
+    private void Start()
     {
-        if (currentTurn >= (battleActors.Count - 1))
+        LevelManager.OnRoomLoaded += StartBattle;
+    }
+
+    private void OnDisable()
+    {
+        OnBattleEnd = null;
+        OnPlayerLost = null;
+        LevelManager.OnRoomLoaded -= StartBattle;
+    }
+    
+    private void StartBattle(List<EnemyData> enemies)
+    {
+        DestroyPreviousActors();
+        _battleActors = new List<ActorInput>();
+        _enemyActors = new List<Actor>();
+        LoadEnemyActors(enemies);
+        LoadPlayerActors();
+        StartCoroutine(ThrowInitiativesAndStartFirstTurn());
+    }
+
+    private void DestroyPreviousActors()
+    {
+        for (int i = 0; i < _enemyActors.Count; i++)
         {
-            currentTurn = 0;
+            Destroy(_enemyActors[i].gameObject);
         }
+    }
+
+    private void LoadEnemyActors(List<EnemyData> enemies)
+    {
+        List<Vector2> positions = GridManager.instance.GetEnemyPositions(enemies.Count);
+        int indx = 0;
+        foreach (EnemyData enemy in enemies.OrderByDescending(e => e.positioningLevel))
+        {
+            ActorEnemy enemyActor = Instantiate(enemy.prefab, positions[indx], Quaternion.identity, _enemiesHolder).GetComponent<ActorEnemy>();
+            enemyActor.InitializeActor(enemy.enemyStats, enemy._name);
+            _battleActors.Add(enemyActor.GetComponent<ActorInput>());
+            _enemyActors.Add(enemyActor);
+            indx++;
+        }
+    }
+
+    private void LoadPlayerActors()
+    {
+        List<ActorPlayer> playerActors = PlayerActorsManager.instance.GetPlayerActors();
+        foreach (ActorPlayer player in playerActors)
+        {
+            _battleActors.Add(player.GetComponent<ActorInput>());
+        }
+    }
+
+    public void EndCurrentTurn()
+    {
+        _currentTurn++;
+        
+        if (_currentTurn >= _battleActors.Count)
+            _currentTurn = 0;
+
+
+        if (CheckIfBattleEnd())
+            EndBattle();
         else
+            SetUpTurn();
+    }
+
+    private bool CheckIfBattleEnd()
+    {
+        if (PlayerActorsManager.instance.AllActorsDead())
         {
-            currentTurn++;
+            OnPlayerLost?.Invoke();
+            return true;
         }
-        SetUpTurn();
+        
+        if (AllEnemyActorsDead())
+        {
+            OnBattleEnd?.Invoke();
+            return true;
+        }
+
+        return false;
     }
 
     private void SetUpTurn()
     {
-        Actor currentActor = battleActors[currentTurn];
-        //currentActor.actorInput.StartTurn();
-        turnSprite.transform.position = currentActor.turnIndicator.position;
+        ActorInput currentActor = _battleActors[_currentTurn];
+        currentActor.StartTurn();
+        _turnSprite.transform.position = currentActor.GetTurnIndicatorPosition();
     }
 
-    private void SetUpInitiative()
+    private void ThrowInitiatives()
     {
-        foreach (Actor battleActor in battleActors)
+        foreach (ActorInput battleActor in _battleActors)
         {
-            var diceResult= Utilities.GetDiceThrow(new DiceAmount(1, Dice.D6));
-            battleActor.initiative = diceResult[0];
+            Actor actor = battleActor.GetActor();
+            battleActor.SetInitiative(Utilities.RollWithVisuals(actor.GetInitiative()));
         }
     }
 
-    private void SortActorList()
+    private void ApplyTurnOrder()
     {
-        battleActors = battleActors.OrderBy(a => a.initiative).ToList();
+        _battleActors = _battleActors.OrderByDescending(a => a.GetInitiative()).ToList();
     }
-}
 
-public interface IActorInput
-{
-    public void StartTurn()
+    IEnumerator ThrowInitiativesAndStartFirstTurn()
     {
+        ThrowInitiatives();
+        yield return new WaitForSeconds(_timeToSeeInitiatives);
+        ApplyTurnOrder();
+        _currentTurn = 0;
+        SetUpTurn();
+        _turnSprite.SetActive(true);
+    }
+    
+    public bool AllEnemyActorsDead()
+    {
+        foreach (Actor actor in _enemyActors)
+        {
+            if (actor.IsAlive()) return false;
+        }
+
+        return true;
+    }
+
+    private void EndBattle()
+    {
+        _turnSprite.SetActive(false);
+        //Deactivate turn positions
+    }
+
+    public void RemoveActor(Actor actor)
+    {
+        ActorInput actorInput = _battleActors.Where(actorInput => actorInput.GetActor() == actor) as ActorInput;
         
+        _battleActors.Remove(actorInput);
+        
+        if (_enemyActors.Contains(actorInput.GetActor()))
+            _enemyActors.Remove(actorInput.GetActor());
+        
+        //Remake turn positions
     }
 }
