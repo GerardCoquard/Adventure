@@ -22,6 +22,11 @@ public class PlayerActorsManager : MonoBehaviour
         LevelManager.OnLevelStarted += ResetActors;
     }
 
+    private void OnDisable()
+    {
+        LevelManager.OnLevelStarted -= ResetActors;
+    }
+
     private void LoadPlayerActors()
     {
         List<Vector2> positions = GridManager.instance.GetPlayerPositions(_playerDatas.Count);

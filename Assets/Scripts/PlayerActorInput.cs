@@ -8,10 +8,23 @@ public class PlayerActorInput : ActorInput
     {
         turnActive = true;
     }
-    
+
+    public override void EndTurn()
+    {
+        turnActive = false;
+        base.EndTurn();
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space) && turnActive)
             EndTurn();
+
+        if (Input.GetKeyDown(KeyCode.K) && turnActive)
+        {
+            GetActor().OnDie();
+            EndTurn();
+        }
+            
     }
 }

@@ -93,7 +93,5 @@ public class GridManager : MonoBehaviour
         }
         
         return points;
-        
-        return points;
     }
 }

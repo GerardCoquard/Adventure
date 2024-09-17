@@ -15,7 +15,10 @@ public class ActorVisuals : MonoBehaviour
 
     public void SetTurnPosition(int position)
     {
-        _turnPosition.text = position + "º";
+        if(position == 0)
+            _turnPosition.text = "";
+        else
+            _turnPosition.text = position + "º";
     }
     
     public void SetName(string newName)

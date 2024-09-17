@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager instance;
+    
     public static Action<List<EnemyData>> OnRoomLoaded;
     public static Action OnLevelStarted;
     public static Action OnLevelEnded;
@@ -14,6 +16,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Dialogue _firstDialogue;
     private int _currentLevel;
     private int _currentRoom;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -47,15 +54,11 @@ public class LevelManager : MonoBehaviour
     
     private void NextRoom()
     {
-        if (_levels[_currentLevel].rooms.Count >= _currentRoom + 1)
-        {
+        _currentRoom++;
+        if (_currentRoom >= _levels[_currentLevel].rooms.Count)
             PassLevel();
-        }
         else
-        {
-            _currentRoom++;
             LoadRoom();
-        }
     }
 
     public void Respawn()
@@ -89,5 +92,10 @@ public class LevelManager : MonoBehaviour
     public int GetCurrentRoom()
     {
         return _currentRoom + 1;
+    }
+    
+    public int GetMaxRooms()
+    {
+        return _levels[_currentLevel].rooms.Count;
     }
 }

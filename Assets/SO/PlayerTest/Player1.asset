@@ -16,7 +16,7 @@ MonoBehaviour:
   _name: Player1
   positioningLevel: 0
   enemyStats:
-    level: 1
+    level: 2
     combat: 1
     mind: 1
     resistance: 1

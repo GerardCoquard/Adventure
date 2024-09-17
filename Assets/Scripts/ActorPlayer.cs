@@ -70,6 +70,12 @@ public class ActorPlayer : Actor
     public override void OnDie()
     {
         BattleManager.instance.RemoveActor(this);
+        _currentHealth -= _currentHealth;//DELETE
+        _currentMana -= _currentMana;
+        SetTurn(0);
+        _visuals.SetHealth(_currentHealth, GetMaxHealth());
+        _visuals.SetMana(_currentMana, GetMaxMana());
+        
         //TO DO
     }
 }

@@ -13,8 +13,9 @@ public class BattleManager : MonoBehaviour
     
     private List<ActorInput> _battleActors = new List<ActorInput>();
     private List<Actor> _enemyActors = new List<Actor>();
-    private int _currentTurn;
+    private ActorInput _currentActorTurn;
     
+    [SerializeField] private float _turnDelay;
     [SerializeField] private Transform _enemiesHolder;
     [SerializeField] private float _timeToSeeInitiatives;
     [SerializeField] private GameObject _turnSprite;
@@ -43,6 +44,7 @@ public class BattleManager : MonoBehaviour
         _enemyActors = new List<Actor>();
         LoadEnemyActors(enemies);
         LoadPlayerActors();
+        HideTurnPositions();
         StartCoroutine(ThrowInitiativesAndStartFirstTurn());
     }
 
@@ -73,22 +75,19 @@ public class BattleManager : MonoBehaviour
         List<ActorPlayer> playerActors = PlayerActorsManager.instance.GetPlayerActors();
         foreach (ActorPlayer player in playerActors)
         {
-            _battleActors.Add(player.GetComponent<ActorInput>());
+            if(player.IsAlive())
+                _battleActors.Add(player.GetComponent<ActorInput>());
         }
     }
 
     public void EndCurrentTurn()
     {
-        _currentTurn++;
-        
-        if (_currentTurn >= _battleActors.Count)
-            _currentTurn = 0;
-
+        _currentActorTurn = _battleActors.Last() == _currentActorTurn ? _battleActors.First() : _battleActors[_battleActors.IndexOf(_currentActorTurn)+1];
 
         if (CheckIfBattleEnd())
             EndBattle();
         else
-            SetUpTurn();
+            StartCoroutine(TurnDelay());
     }
 
     private bool CheckIfBattleEnd()
@@ -110,9 +109,8 @@ public class BattleManager : MonoBehaviour
 
     private void SetUpTurn()
     {
-        ActorInput currentActor = _battleActors[_currentTurn];
-        currentActor.StartTurn();
-        _turnSprite.transform.position = currentActor.GetTurnIndicatorPosition();
+        _currentActorTurn.StartTurn();
+        _turnSprite.transform.position = _currentActorTurn.GetTurnIndicatorPosition();
     }
 
     private void ThrowInitiatives()
@@ -122,10 +120,7 @@ public class BattleManager : MonoBehaviour
             Actor actor = battleActor.GetActor();
             battleActor.SetInitiative(Utilities.RollWithVisuals(actor.GetInitiative()));
         }
-    }
-
-    private void ApplyTurnOrder()
-    {
+        
         _battleActors = _battleActors.OrderByDescending(a => a.GetInitiative()).ToList();
     }
 
@@ -133,8 +128,8 @@ public class BattleManager : MonoBehaviour
     {
         ThrowInitiatives();
         yield return new WaitForSeconds(_timeToSeeInitiatives);
-        ApplyTurnOrder();
-        _currentTurn = 0;
+        UpdateTurnPositions();
+        _currentActorTurn = _battleActors.First();
         SetUpTurn();
         _turnSprite.SetActive(true);
     }
@@ -152,18 +147,43 @@ public class BattleManager : MonoBehaviour
     private void EndBattle()
     {
         _turnSprite.SetActive(false);
-        //Deactivate turn positions
+        HideTurnPositions();
     }
 
     public void RemoveActor(Actor actor)
     {
-        ActorInput actorInput = _battleActors.Where(actorInput => actorInput.GetActor() == actor) as ActorInput;
+        ActorInput actorInput = actor.GetComponent<ActorInput>();
+        if (actorInput == _currentActorTurn)
+            _currentActorTurn = _battleActors.First() == _currentActorTurn ? _battleActors.Last() : _battleActors[_battleActors.IndexOf(_currentActorTurn)-1];
         
         _battleActors.Remove(actorInput);
         
         if (_enemyActors.Contains(actorInput.GetActor()))
             _enemyActors.Remove(actorInput.GetActor());
-        
-        //Remake turn positions
+
+        UpdateTurnPositions();
+    }
+
+    private void UpdateTurnPositions()
+    {
+        for (int i = 0; i < _battleActors.Count; i++)
+        {
+            _battleActors[i].GetActor().SetTurn(i+1);
+        }
+    }
+
+    private void HideTurnPositions()
+    {
+        for (int i = 0; i < _battleActors.Count; i++)
+        {
+            _battleActors[i].GetActor().SetTurn(0);
+        }
+    }
+
+    IEnumerator TurnDelay()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(_turnDelay);
+        SetUpTurn();
     }
 }

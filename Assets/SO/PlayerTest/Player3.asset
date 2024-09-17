@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Player3
   m_EditorClassIdentifier: 
   prefab: {fileID: 2264994171232425212, guid: 874f3fb7ae0044447b7aab21ed900241, type: 3}
-  _name: Player1
+  _name: Player3
   positioningLevel: 0
   enemyStats:
-    level: 1
+    level: 2
     combat: 1
     mind: 1
     resistance: 1

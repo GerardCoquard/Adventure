@@ -14,6 +14,8 @@ public class EnemyActorInput : ActorInput
     IEnumerator WaitForPassingTurn()
     {
         yield return new WaitForSeconds(turnDuration);
+        if(Input.GetKey(KeyCode.K))
+            GetActor().OnDie();
         EndTurn();
     }
 }

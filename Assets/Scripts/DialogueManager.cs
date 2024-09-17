@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
 
     public void LoadDialogue(Dialogue dialogue)
     {
-        EndDialogue();
+        StartCoroutine(DialogueTest());
     }
 
     private void EndDialogue()
@@ -37,5 +37,6 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueTest.SetActive(true);
         yield return new WaitForSeconds(3);
+        EndDialogue();
     }
 }

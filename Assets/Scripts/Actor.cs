@@ -43,7 +43,7 @@ public abstract class Actor : MonoBehaviour
     
     public abstract void OnDie();
 
-    public virtual void SetVisuals()
+    protected virtual void SetVisuals()
     {
         _visuals.SetName(_actorName);
         _visuals.SetHealth(_currentHealth, GetMaxHealth());
@@ -109,7 +109,7 @@ public abstract class Actor : MonoBehaviour
     public virtual void ResetActor()
     {
         _currentHealth = GetMaxHealth();
-        _currentHealth = GetMaxHealth();
+        _currentMana = GetMaxMana();
         SetVisuals();
     }
 
