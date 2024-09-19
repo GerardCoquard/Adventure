@@ -9,17 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 094782bf9cfd64b4789f33ad55955053, type: 3}
-  m_Name: Dialogue
+  m_Script: {fileID: 11500000, guid: d7d67a71424bea84dbab3d9e93a36c64, type: 3}
+  m_Name: Attack
   m_EditorClassIdentifier: 
-  conversation:
-  - character: 0
-    text: 
-  - character: 0
-    text: 
-  - character: 0
-    text: 
-  - character: 0
-    text: 
-  - character: 0
-    text: 
+  targets: 1
+  targetTeam: 1
+  actionCost: 1
+  bonusActionCost: 0
+  manaCost: 0
