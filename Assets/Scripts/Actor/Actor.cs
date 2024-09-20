@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Actor : MonoBehaviour
 {
     protected Equipment _equipment;
-    protected ActorDisplay Display;
+    protected ActorDisplay _display;
     
     protected string _actorName;
     
@@ -23,7 +23,7 @@ public abstract class Actor : MonoBehaviour
     private void Awake()
     {
         _equipment = GetComponent<Equipment>();
-        Display = GetComponentInChildren<ActorDisplay>();
+        _display = GetComponentInChildren<ActorDisplay>();
     }
     
     //Getters
@@ -48,14 +48,14 @@ public abstract class Actor : MonoBehaviour
 
     protected virtual void SetVisuals()
     {
-        Display.SetName(_actorName);
-        Display.SetHealth(_currentHealth, _health);
-        Display.SetMana(_currentMana, _mana);
+        _display.SetName(_actorName);
+        _display.SetHealth(_currentHealth, _health);
+        _display.SetMana(_currentMana, _mana);
     }
 
     public virtual void SetTurn(int position)
     {
-        Display.SetTurnPosition(position);
+        _display.SetTurnPosition(position);
     }
     
     public virtual DiceAmount GetInitiative()
@@ -75,13 +75,13 @@ public abstract class Actor : MonoBehaviour
 
     public virtual void AddMana()
     {
-        _lastManaAdded = Utilities.Roll(GetManaDice()) + GetMind();
+        _lastManaAdded = DiceManager.instance.Roll(GetManaDice()) + GetMind();
         _mana += _lastManaAdded;
     }
     
     public virtual void AddHealth()
     {
-        _lastHealthAdded = Utilities.Roll(GetHealthDice()) + GetResistance();
+        _lastHealthAdded = DiceManager.instance.Roll(GetHealthDice()) + GetResistance();
         _health += _lastHealthAdded;
     }
 
@@ -114,6 +114,11 @@ public abstract class Actor : MonoBehaviour
     public virtual void TakeDamage(int amount)
     {
         _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, _health);
+    }
+    
+    public Vector2 GetInitiativePosition()
+    {
+        return _display.GetInitiativePosition();
     }
     
     //DELETE

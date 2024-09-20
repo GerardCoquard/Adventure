@@ -37,4 +37,9 @@ public class ActorDisplay : MonoBehaviour
         _manaBar.fillAmount = (float)current / max;
         _manaText.text = current + " / " + max;
     }
+
+    public Vector2 GetInitiativePosition()
+    {
+        return _turnPosition.transform.position;
+    }
 }

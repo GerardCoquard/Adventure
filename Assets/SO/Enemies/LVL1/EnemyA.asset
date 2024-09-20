@@ -21,10 +21,14 @@ MonoBehaviour:
     mind: 1
     resistance: 1
     healthDice: 6
-    initiativeDice: 6
+    healthFixedAmount: 0
     manaDice: 6
+    manaFixedAmount: 0
+    initiativeDice: 6
     attacks: 2
     magicResistance: 2
     damage: 0
     armor: 0
-    _abilities: []
+    _abilities:
+    - _ability: {fileID: 11400000, guid: 839f417333cec6a48a7cdc9c2f0a2106, type: 2}
+      weight: 0

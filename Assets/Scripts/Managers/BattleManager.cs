@@ -118,7 +118,7 @@ public class BattleManager : MonoBehaviour
         foreach (ActorInput battleActor in _battleActors)
         {
             Actor actor = battleActor.GetActor();
-            battleActor.SetInitiative(Utilities.RollWithVisuals(actor.GetInitiative()));
+            battleActor.SetInitiative(DiceManager.instance.RollWithVisuals(actor.GetInitiative(), actor.GetInitiativePosition()));
         }
         
         _battleActors = _battleActors.OrderByDescending(a => a.GetInitiative()).ToList();

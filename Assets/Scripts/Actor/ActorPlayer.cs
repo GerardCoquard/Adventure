@@ -88,8 +88,8 @@ public class ActorPlayer : Actor
         _currentHealth -= _currentHealth;//DELETE
         _currentMana -= _currentMana;
         SetTurn(0);
-        Display.SetHealth(_currentHealth, _health);
-        Display.SetMana(_currentMana, _mana);
+        _display.SetHealth(_currentHealth, _health);
+        _display.SetMana(_currentMana, _mana);
         
         //TO DO
     }

@@ -20,7 +20,7 @@ public class GridManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + new Vector3(enemyWidth,20,0),transform.position + new Vector3(enemyWidth,-20,0));
+        Gizmos.DrawLine(transform.position + new Vector3(enemyWidth,5,0),transform.position + new Vector3(enemyWidth,-5,0));
         List<Vector2> pointsEnemy = GetEnemyPositions(5);
         foreach (Vector2 point in pointsEnemy)
         {
@@ -29,7 +29,7 @@ public class GridManager : MonoBehaviour
         
         
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position + new Vector3(playerWidth,20,0),transform.position + new Vector3(playerWidth,-20,0));
+        Gizmos.DrawLine(transform.position + new Vector3(playerWidth,5,0),transform.position + new Vector3(playerWidth,-5,0));
         List<Vector2> pointsPlayer = GetPlayerPositions(3);
         foreach (Vector2 point in pointsPlayer)
         {
