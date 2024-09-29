@@ -9,7 +9,7 @@ public class DiceManager : MonoBehaviour
     public static DiceManager instance;
     
     [SerializeField] private List<Sprite> _diceSprites;
-    [SerializeField] private GameObject _dicePrefab;
+    [SerializeField] private GameObject _diceRollPrefab;
     [SerializeField] private Transform _initiativesHolder;
     private Dictionary<Dice, Sprite> _diceSpritesDictionary;
 
@@ -18,22 +18,28 @@ public class DiceManager : MonoBehaviour
         instance = this;
         
         _diceSpritesDictionary = new Dictionary<Dice, Sprite>();
-        
-        foreach(int i in Enum.GetValues(typeof(Dice)))
-            _diceSpritesDictionary.Add((Dice)i,_diceSprites[i]);
+        int indx = 0;
+        foreach (int i in Enum.GetValues(typeof(Dice)))
+        {
+            _diceSpritesDictionary.Add((Dice)i,_diceSprites[indx]);
+            indx++;
+        }
+            
     }
 
-    public int RollWithVisuals(DiceAmount diceAmount, Vector2 position)
+    public int RollWithVisuals(DiceAmount diceAmount, Vector2 position, bool showTotal)
     {
         int total = 0;
+        int[] results = new int[diceAmount.amount];
         
         for (int i = 0; i < diceAmount.amount; i++)
         {
             int result = Random.Range(1, (int)diceAmount.dice+1);
-            DiceRoll dice = Instantiate(_dicePrefab, Camera.main.WorldToScreenPoint(position), Quaternion.identity, _initiativesHolder).GetComponent<DiceRoll>();
-            dice.SetRoll(result,(int)diceAmount.dice,_diceSpritesDictionary[diceAmount.dice]);
+            results[i] = result;
             total += result;
         }
+        Roll roll = Instantiate(_diceRollPrefab, Camera.main.WorldToScreenPoint(position), Quaternion.identity, _initiativesHolder).GetComponent<Roll>();
+        roll.RollDices(diceAmount, results, 3, total, _diceSpritesDictionary[diceAmount.dice], showTotal);
         return total;
     }
     

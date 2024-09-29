@@ -8,21 +8,25 @@ using UnityEngine.UI;
 
 public class DiceRoll : MonoBehaviour
 {
-    [SerializeField] private int maxNumber;
-    [SerializeField] private float _startTime;
-    [SerializeField] private float _timeToShowNumber;
-    [SerializeField] private float _endTime;
     [SerializeField] private Image _sprite;
     [SerializeField] private TextMeshProUGUI _numberText;
     private int _result;
-    private int _maxResult;
+    private float _startTime;
+    private float _timeToShowNumber;
 
-    public void SetRoll(int result, int maxResult, Sprite sprite)
+    public void SetParameters(int result, Sprite sprite, float startTime, float timeToShowNumber)
     {
         _result = result;
+        _numberText.text = _result.ToString();
         _sprite.sprite = sprite;
-        _maxResult = maxResult;
-        StartCoroutine(Shuffle());
+        _sprite.color = new Color(_sprite.color.r, _sprite.color.g, _sprite.color.b, 1);
+        _startTime = startTime;
+        _timeToShowNumber = timeToShowNumber;
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(Shuffle(_startTime, _timeToShowNumber));
     }
 
     public int GetResult()
@@ -30,23 +34,21 @@ public class DiceRoll : MonoBehaviour
         return _result;
     }
 
-    IEnumerator Shuffle()
+    IEnumerator Shuffle(float startTime, float timeToShowNumber)
     {
         _numberText.alpha = 0;
         
-        yield return new WaitForSeconds(_startTime);
+        yield return new WaitForSeconds(startTime);
 
         float time = 0;
         
-        while (time < _timeToShowNumber)
+        while (time < timeToShowNumber)
         {
-            _numberText.alpha = Mathf.Lerp(0, 1, time / _timeToShowNumber);
+            _numberText.alpha = Mathf.Lerp(0, 1, time / timeToShowNumber);
             time += Time.deltaTime;
             yield return null;
         }
         
         _numberText.alpha = 1;
-        
-        yield return new WaitForSeconds(_endTime);
     }
 }

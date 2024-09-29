@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        _turnSprite.SetActive(false);
     }
 
     private void Start()
@@ -111,6 +112,7 @@ public class BattleManager : MonoBehaviour
     {
         _currentActorTurn.StartTurn();
         _turnSprite.transform.position = _currentActorTurn.GetTurnIndicatorPosition();
+        _turnSprite.SetActive(true);
     }
 
     private void ThrowInitiatives()
@@ -118,7 +120,7 @@ public class BattleManager : MonoBehaviour
         foreach (ActorInput battleActor in _battleActors)
         {
             Actor actor = battleActor.GetActor();
-            battleActor.SetInitiative(DiceManager.instance.RollWithVisuals(actor.GetInitiative(), actor.GetInitiativePosition()));
+            battleActor.SetInitiative(DiceManager.instance.RollWithVisuals(actor.GetInitiative(), actor.GetDicePosition(), true));
         }
         
         _battleActors = _battleActors.OrderByDescending(a => a.GetInitiative()).ToList();
@@ -131,7 +133,6 @@ public class BattleManager : MonoBehaviour
         UpdateTurnPositions();
         _currentActorTurn = _battleActors.First();
         SetUpTurn();
-        _turnSprite.SetActive(true);
     }
     
     public bool AllEnemyActorsDead()
@@ -182,6 +183,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator TurnDelay()
     {
+        _turnSprite.SetActive(false);
         yield return new WaitForEndOfFrame();
         yield return new WaitForSeconds(_turnDelay);
         SetUpTurn();

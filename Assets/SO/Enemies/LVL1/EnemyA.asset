@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8a7611b5b0165468c3aa7f3bdb0fb5, type: 3}
   m_Name: EnemyA
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2739003267830172231, guid: fe6fbef42b75f0b459ce9fdb19755ad7, type: 3}
+  prefab: {fileID: 1241484792094625822, guid: c8904892dcdab0d4c962864d356f1303, type: 3}
   _name: Enemy A
   positioningLevel: 1
   enemyStats:

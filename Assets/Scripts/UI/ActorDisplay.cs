@@ -12,13 +12,14 @@ public class ActorDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _healthText;
     [SerializeField] private Image _manaBar;
     [SerializeField] private TextMeshProUGUI _manaText;
+    [SerializeField] private Transform _diceThrowPosition;
 
     public void SetTurnPosition(int position)
     {
         if(position == 0)
             _turnPosition.text = "";
         else
-            _turnPosition.text = position + "º";
+            _turnPosition.text = position.ToString();
     }
     
     public void SetName(string newName)
@@ -38,8 +39,8 @@ public class ActorDisplay : MonoBehaviour
         _manaText.text = current + " / " + max;
     }
 
-    public Vector2 GetInitiativePosition()
+    public Vector2 GetDicePosition()
     {
-        return _turnPosition.transform.position;
+        return _diceThrowPosition.position;
     }
 }

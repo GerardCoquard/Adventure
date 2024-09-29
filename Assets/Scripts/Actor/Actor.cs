@@ -116,9 +116,9 @@ public abstract class Actor : MonoBehaviour
         _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, _health);
     }
     
-    public Vector2 GetInitiativePosition()
+    public Vector2 GetDicePosition()
     {
-        return _display.GetInitiativePosition();
+        return _display.GetDicePosition();
     }
     
     //DELETE
