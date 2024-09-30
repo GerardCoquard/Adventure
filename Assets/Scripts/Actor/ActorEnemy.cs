@@ -69,6 +69,16 @@ public class ActorEnemy : Actor
         return _stats.magicResistance;
     }
 
+    public override int GetActionAmount()
+    {
+        return _stats.actionAmount;
+    }
+
+    public override int GetBonusActionAmount()
+    {
+        return _stats.bonusActionAmount;
+    }
+
     public override void OnDie()
     {
         BattleManager.instance.RemoveActor(this);

@@ -18,6 +18,8 @@ public struct EnemyStats
     public Dice initiativeDice;
     public int attacks;
     public int magicResistance;
+    public int actionAmount;
+    public int bonusActionAmount;
     [Header("Equipment")]
     public int damage;
     public int armor;

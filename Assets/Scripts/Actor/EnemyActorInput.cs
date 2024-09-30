@@ -8,6 +8,7 @@ public class EnemyActorInput : ActorInput
     
     public override void StartTurn()
     {
+        base.StartTurn();
         StartCoroutine(WaitForPassingTurn());
     }
     

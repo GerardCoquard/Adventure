@@ -6,7 +6,9 @@ using UnityEngine;
 public abstract class Actor : MonoBehaviour
 {
     protected Equipment _equipment;
+    protected ActorBuffs _actorBuffs;
     protected ActorDisplay _display;
+    
     
     protected string _actorName;
     
@@ -19,10 +21,14 @@ public abstract class Actor : MonoBehaviour
 
     protected int _currentHealth;
     protected int _currentMana;
+    
+    protected int _currentActionAmount;
+    protected int _currentBonusActionAmount;
 
     private void Awake()
     {
         _equipment = GetComponent<Equipment>();
+        _actorBuffs = GetComponent<ActorBuffs>();
         _display = GetComponentInChildren<ActorDisplay>();
     }
     
@@ -44,6 +50,10 @@ public abstract class Actor : MonoBehaviour
 
     public abstract int GetMagicResistance();
     
+    public abstract int GetActionAmount();
+    
+    public abstract int GetBonusActionAmount();
+    
     public abstract void OnDie();
 
     protected virtual void SetVisuals()
@@ -56,6 +66,17 @@ public abstract class Actor : MonoBehaviour
     public virtual void SetTurn(int position)
     {
         _display.SetTurnPosition(position);
+    }
+    
+    public virtual void StartTurn()
+    {
+        _currentActionAmount = GetActionAmount();
+        _currentBonusActionAmount = GetBonusActionAmount();
+    }
+    
+    public virtual void EndTurn()
+    {
+        _actorBuffs.UpdateBuffsDurations();
     }
     
     public virtual DiceAmount GetInitiative()

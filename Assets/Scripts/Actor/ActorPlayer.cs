@@ -76,6 +76,16 @@ public class ActorPlayer : Actor
     {
         return _stats.magicResistance;
     }
+    
+    public override int GetActionAmount()
+    {
+        return _stats.actionAmount;
+    }
+
+    public override int GetBonusActionAmount()
+    {
+        return _stats.bonusActionAmount;
+    }
 
     public void GetThreat()
     {

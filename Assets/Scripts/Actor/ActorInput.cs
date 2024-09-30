@@ -14,10 +14,14 @@ public abstract class ActorInput : MonoBehaviour
         _actor = GetComponent<Actor>();
     }
 
-    public abstract void StartTurn();
+    public virtual void StartTurn()
+    {
+        _actor.StartTurn();
+    }
 
     public virtual void EndTurn()
     {
+        _actor.EndTurn();
         BattleManager.instance.EndCurrentTurn();
     }
 

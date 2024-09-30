@@ -6,6 +6,7 @@ public class PlayerActorInput : ActorInput
     private bool turnActive;
     public override void StartTurn()
     {
+        base.StartTurn();
         turnActive = true;
     }
 
