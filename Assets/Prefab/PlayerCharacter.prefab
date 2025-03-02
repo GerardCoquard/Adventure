@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7622232376136824390}
   - component: {fileID: 367287001666903374}
   - component: {fileID: 3396242366145894228}
+  - component: {fileID: 4628630018277000130}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -103,6 +104,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c8c2fc0feb3f04999cf3fda3bcab44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4628630018277000130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264994171232425212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702e73f57c836e2439c1987e71af3052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6139653739809807786
@@ -200,6 +213,10 @@ PrefabInstance:
     - target: {fileID: 71551175045062998, guid: 9b5bdc9bb98850e48be320f5027f6178, type: 3}
       propertyPath: m_Name
       value: ActorCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 651929794222935251, guid: 9b5bdc9bb98850e48be320f5027f6178, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1362591068899584808, guid: 9b5bdc9bb98850e48be320f5027f6178, type: 3}
       propertyPath: m_SizeDelta.x

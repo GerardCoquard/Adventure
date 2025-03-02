@@ -36,6 +36,6 @@ public class PlayerActorInput : ActorInput
 
     public void SelectAbility(Ability ability)
     {
-        TargetManager.instance.StartSelectingTargets(ability);
+        TargetManager.instance.StartSelectingTargetsPlayer(ability);
     }
 }

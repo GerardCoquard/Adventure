@@ -9,6 +9,7 @@ public class Ability : ScriptableObject
     public int actionCost;
     public int bonusActionCost;
     public int manaCost;
+    public int duration;
 
     public virtual void OnActivated(List<Actor> targets, Actor self)
     {

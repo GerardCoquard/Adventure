@@ -33,7 +33,19 @@ public class TargetManager : MonoBehaviour
             OnEscapePressed?.Invoke();
     }
 
-    public void StartSelectingTargets(Ability ability)
+    public void StartSelectingTargetsPlayer(Ability ability)
+    {
+        if (_currentAbility == ability)
+            return;
+        
+        if (_currentAbility == null)
+            OnEscapePressed += EndSelectingTargets;
+        
+        _currentAbility = ability;
+        OnAbilitySelected?.Invoke(_currentAbility);
+    }
+    
+    public void StartSelectingTargetsEnemy(Ability ability)
     {
         if (_currentAbility == ability)
             return;

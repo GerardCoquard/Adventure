@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4583228562456523561}
   - component: {fileID: 8809018473453656210}
   - component: {fileID: 4629725845968709770}
+  - component: {fileID: 4062229917810723310}
   m_Layer: 0
   m_Name: EnemyCharacterB
   m_TagString: Untagged
@@ -94,6 +95,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &4062229917810723310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241484792094625822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702e73f57c836e2439c1987e71af3052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2603807131101523377
 GameObject:
   m_ObjectHideFlags: 0
