@@ -27,7 +27,7 @@ public class DiceManager : MonoBehaviour
             
     }
 
-    public int RollWithVisuals(DiceAmount diceAmount, Vector2 position, bool showTotal)
+    public int RollWithVisuals(DiceAmount diceAmount, int bonus, Vector2 position)
     {
         int total = 0;
         int[] results = new int[diceAmount.amount];
@@ -38,8 +38,10 @@ public class DiceManager : MonoBehaviour
             results[i] = result;
             total += result;
         }
+
+        total += bonus;
         Roll roll = Instantiate(_diceRollPrefab, Camera.main.WorldToScreenPoint(position), Quaternion.identity, _initiativesHolder).GetComponent<Roll>();
-        roll.RollDices(diceAmount, results, 3, total, _diceSpritesDictionary[diceAmount.dice], showTotal);
+        roll.RollDices(diceAmount, results, bonus, total, _diceSpritesDictionary[diceAmount.dice]);
         return total;
     }
     

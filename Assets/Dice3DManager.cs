@@ -8,11 +8,18 @@ using UnityEditor;
 
 public class Dice3DManager : MonoBehaviour
 {
+    public static Dice3DManager instance;
     private List<Dice3D> _dicePool;
     private string _path = "Assets/Resources/RenderTextures";
     [SerializeField] private int diceSpacing;
     [SerializeField] private int textureWidth;
     [SerializeField] private int textureHeight;
+    [SerializeField] private List<Mesh> _diceMeshes;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -23,9 +30,50 @@ public class Dice3DManager : MonoBehaviour
         }
     }
 
-    public List<Dice3D> GetPool()
+    public List<Dice3D> GetAvailableDice(DiceAmount diceAmount)
     {
-        return _dicePool;
+        List<Dice3D> temp = new List<Dice3D>();
+        
+        for (int i = 0; i < diceAmount.amount; i++)
+        {
+            Dice3D dice = _dicePool.FirstOrDefault(dice => !dice.GetBeingUsed());
+            dice.SetBeingUsed();
+            if (dice.GetDiceType() != diceAmount.dice)
+            {
+                dice.SetDiceMesh(GetDiceMesh((int)diceAmount.dice));
+                dice.SetDiceType(diceAmount.dice);
+            }
+            temp.Add(dice);
+        }
+
+        return temp;
+    }
+
+    public Mesh GetDiceMesh(int dice)
+    {
+        switch (dice)
+        {
+            case 4:
+                return _diceMeshes[0];
+            
+            case 6:
+                return _diceMeshes[1];
+            
+            case 8:
+                return _diceMeshes[2];
+            
+            case 10:
+                return _diceMeshes[3];
+            
+            case 12:
+                return _diceMeshes[4];
+            
+            case 20:
+                return _diceMeshes[5];
+
+                default:
+                return _diceMeshes[1];
+        }
     }
 
     public void ResetPool()
@@ -113,7 +161,7 @@ public class Dice3DManager : MonoBehaviour
         BoxCollider box = GetComponent<BoxCollider>();
         
         int size = Mathf.CeilToInt(Mathf.Sqrt(_dicePool.Count));
-        box.size = new Vector3(size*diceSpacing, 0.5f, size*diceSpacing);
-        box.center = new Vector3(0, -0.5f, 0);
+        box.size = new Vector3(size*diceSpacing*1.2f, 0.5f, size*diceSpacing*1.2f);
+        box.center = new Vector3(0, -1f, 0);
     }
 }
