@@ -589,9 +589,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceAmount:
-    amount: 5
-    dice: 4
-  bonus: 2
+    amount: 1
+    dice: 6
+  bonus: 0
   parent: {fileID: 1568428134}
   roller: {fileID: 2630889716870175452, guid: 0e9b9e735dc41814ca3a011cd8e6efeb, type: 3}
 --- !u!4 &180237531
