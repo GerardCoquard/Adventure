@@ -7,36 +7,37 @@ using Random = UnityEngine.Random;
 public class Dice3D : MonoBehaviour
 {
     public Camera cam;
-    public Rigidbody rb;
-    public MeshCollider meshCollider;
-    public MeshFilter meshFilter;
-    public float upImpulse;
-    public float rotationSpeed;
-    public float checkTimeStop;
-    public float cameraDistance;
-    private float timeStopped;
-    private Quaternion lastRotation;
-    private Vector3 startPos;
-    [SerializeField] Dice _diceType;
-    private bool beingUsed = false;
+    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private MeshCollider _meshCollider;
+    [SerializeField] private MeshFilter _meshFilter;
+    [SerializeField] private float _upImpulse;
+    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _checkTimeStop;
+    [SerializeField] private float _cameraDistance;
+    
+    private float _timeStopped;
+    private Quaternion _lastRotation;
+    private Vector3 _startPos;
+    private Dice _diceType = Dice.D8;
+    private bool _beingUsed;
 
     public Action OnDiceStopped;
 
-    private void Start()
+    private void Awake()
     {
-        startPos = transform.position;
+        _startPos = transform.position;
         cam.transform.SetParent(null);
         cam.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        cam.transform.position = new Vector3(transform.position.x, transform.position.y + cameraDistance, transform.position.z);
+        cam.transform.position = new Vector3(transform.position.x, transform.position.y + _cameraDistance, transform.position.z);
     }
 
     public void RollDice()
     {
-        SetStartPos(startPos);
+        SetStartPos(_startPos);
         gameObject.SetActive(true);
         StartCoroutine(Roll());
     }
@@ -48,8 +49,8 @@ public class Dice3D : MonoBehaviour
 
     public void SetDiceMesh(Mesh mesh)
     {
-        meshCollider.sharedMesh = mesh;
-        meshFilter.mesh = mesh;
+        _meshCollider.sharedMesh = mesh;
+        _meshFilter.mesh = mesh;
     }
 
     public Dice GetDiceType()
@@ -65,11 +66,11 @@ public class Dice3D : MonoBehaviour
     IEnumerator Roll()
     {
         cam.gameObject.SetActive(true);
-        timeStopped = 0;
-        rb.AddForce(Vector3.up * upImpulse, ForceMode.Impulse);
+        _timeStopped = 0;
+        _rb.AddForce(Vector3.up * _upImpulse, ForceMode.Impulse);
         float x = Random.Range(-1f, 1f);
         float z = Random.Range(-1f, 1f);
-        rb.AddTorque(new Vector3(x,0,z).normalized * rotationSpeed, ForceMode.Acceleration);
+        _rb.AddTorque(new Vector3(x,0,z).normalized * _rotationSpeed, ForceMode.Acceleration);
 
         yield return new WaitForSeconds(0.2f);
         
@@ -84,15 +85,15 @@ public class Dice3D : MonoBehaviour
 
     private bool StoppedRotating()
     {
-        if (timeStopped >= checkTimeStop)
+        if (_timeStopped >= _checkTimeStop)
             return true;
 
-        if (lastRotation == transform.rotation)
-            timeStopped += Time.deltaTime;
+        if (_lastRotation == transform.rotation)
+            _timeStopped += Time.deltaTime;
         else
-            timeStopped = 0;
+            _timeStopped = 0;
 
-        lastRotation = transform.rotation;
+        _lastRotation = transform.rotation;
 
         return false;
     }
@@ -102,17 +103,17 @@ public class Dice3D : MonoBehaviour
         cam.gameObject.SetActive(false);
         gameObject.SetActive(false);
         OnDiceStopped = null;
-        beingUsed = false;
+        _beingUsed = false;
     }
 
     public bool GetBeingUsed()
     {
-        return beingUsed;
+        return _beingUsed;
     }
     
     public void SetBeingUsed()
     {
-        beingUsed = true;
+        _beingUsed = true;
     }
 
     public void SetStartPos(Vector3 pos)

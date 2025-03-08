@@ -559,56 +559,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102969256}
   m_CullTransparentMesh: 1
---- !u!1 &180237529
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 180237531}
-  - component: {fileID: 180237530}
-  m_Layer: 0
-  m_Name: TEST
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &180237530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180237529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb55f0be1a13d34d8716a0a9a390b6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  diceAmount:
-    amount: 1
-    dice: 6
-  bonus: 0
-  parent: {fileID: 1568428134}
-  roller: {fileID: 2630889716870175452, guid: 0e9b9e735dc41814ca3a011cd8e6efeb, type: 3}
---- !u!4 &180237531
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180237529}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.48, y: -3.35, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &204423286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2224,6 +2174,7 @@ GameObject:
   - component: {fileID: 936041259}
   - component: {fileID: 936041258}
   - component: {fileID: 936041257}
+  - component: {fileID: 936041261}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -2337,6 +2288,20 @@ MonoBehaviour:
   playerWidth: -5
   verticalSpacing: 1.5
   lateralSpacing: 1.8
+--- !u!114 &936041261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936041253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a93339cc5733a64da3ebaaafd00ed6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _diceRollPrefab: {fileID: 2630889716870175452, guid: 0e9b9e735dc41814ca3a011cd8e6efeb, type: 3}
+  _initiativesHolder: {fileID: 1475324732}
 --- !u!1001 &972458093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3376,41 +3341,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2242973477510331383, guid: 5f5e32c20afb6524a86b5f1880920888, type: 3}
   m_PrefabInstance: {fileID: 1557028818}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1568428133
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1568428134}
-  m_Layer: 5
-  m_Name: Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1568428134
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1568428133}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1958082905}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1578354121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4291,7 +4221,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1958082905}
-  - component: {fileID: 1958082906}
   m_Layer: 5
   m_Name: Dices
   m_TagString: Untagged
@@ -4313,7 +4242,6 @@ RectTransform:
   m_Children:
   - {fileID: 1475324732}
   - {fileID: 1452604453}
-  - {fileID: 1568428134}
   m_Father: {fileID: 85084901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4321,27 +4249,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1958082906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958082904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a93339cc5733a64da3ebaaafd00ed6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _diceSprites:
-  - {fileID: -398016888, guid: 3a2184e83e87d1e499fa5ede9424c1cb, type: 3}
-  - {fileID: -930639733, guid: 3a2184e83e87d1e499fa5ede9424c1cb, type: 3}
-  - {fileID: 1045420491, guid: 3a2184e83e87d1e499fa5ede9424c1cb, type: 3}
-  - {fileID: -1392261387, guid: 3a2184e83e87d1e499fa5ede9424c1cb, type: 3}
-  - {fileID: 258156212, guid: 3a2184e83e87d1e499fa5ede9424c1cb, type: 3}
-  - {fileID: -530343430, guid: 3a2184e83e87d1e499fa5ede9424c1cb, type: 3}
-  _diceRollPrefab: {fileID: 4041682953102328796, guid: c345ceb4f7919ca45aeaebe561c4bffa, type: 3}
-  _initiativesHolder: {fileID: 1475324732}
 --- !u!1001 &1961863219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4802,11 +4709,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ad9c245773d84458a05d4592267bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceSpacing: 6
-  textureWidth: 1024
-  textureHeight: 1024
+  _path: Assets/Resources/RenderTextures
+  _diceSpacing: 6
+  _textureWidth: 1024
+  _textureHeight: 1024
   _diceMeshes:
-  - {fileID: 8406115634004838570, guid: a40d6a1d9ec8bc3498dc2587c6ec5e97, type: 3}
+  - {fileID: 8406115634004838570, guid: 128c15823ecd0c74f9c58c08cd647d7e, type: 3}
   - {fileID: 6106684709770762409, guid: a40d6a1d9ec8bc3498dc2587c6ec5e97, type: 3}
   - {fileID: 2004220514215547408, guid: a40d6a1d9ec8bc3498dc2587c6ec5e97, type: 3}
   - {fileID: 470569146712884595, guid: a40d6a1d9ec8bc3498dc2587c6ec5e97, type: 3}
@@ -4913,4 +4821,3 @@ SceneRoots:
   - {fileID: 1003998559}
   - {fileID: 2061794048}
   - {fileID: 1784528572}
-  - {fileID: 180237531}

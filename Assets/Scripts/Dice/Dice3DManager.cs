@@ -9,20 +9,18 @@ using UnityEditor;
 public class Dice3DManager : MonoBehaviour
 {
     public static Dice3DManager instance;
+    
     private List<Dice3D> _dicePool;
-    private string _path = "Assets/Resources/RenderTextures";
-    [SerializeField] private int diceSpacing;
-    [SerializeField] private int textureWidth;
-    [SerializeField] private int textureHeight;
+    [SerializeField] private string _path = "Assets/Resources/RenderTextures";
+    [SerializeField] private int _diceSpacing;
+    [SerializeField] private int _textureWidth;
+    [SerializeField] private int _textureHeight;
     [SerializeField] private List<Mesh> _diceMeshes;
 
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
+        
         _dicePool = new List<Dice3D>(transform.GetComponentsInChildren<Dice3D>());
         foreach (Dice3D dice in _dicePool)
         {
@@ -40,8 +38,8 @@ public class Dice3DManager : MonoBehaviour
             dice.SetBeingUsed();
             if (dice.GetDiceType() != diceAmount.dice)
             {
-                dice.SetDiceMesh(GetDiceMesh((int)diceAmount.dice));
                 dice.SetDiceType(diceAmount.dice);
+                dice.SetDiceMesh(GetDiceMesh((int)diceAmount.dice));
             }
             temp.Add(dice);
         }
@@ -109,7 +107,7 @@ public class Dice3DManager : MonoBehaviour
         {
             for (int i = 0; i < _dicePool.Count; i++)
             {
-                RenderTexture renderTexture = new RenderTexture(textureWidth, textureHeight, 24);
+                RenderTexture renderTexture = new RenderTexture(_textureWidth, _textureHeight, 24);
                 string assetPath = $"{_path}/RenderTexture" + i +".renderTexture";
                 AssetDatabase.CreateAsset(renderTexture, assetPath);
             }
@@ -142,13 +140,13 @@ public class Dice3DManager : MonoBehaviour
     {
         int sideLength = Mathf.CeilToInt(Mathf.Sqrt(_dicePool.Count));
 
-        Vector3 startPos = transform.position + new Vector3(-sideLength / 2f * diceSpacing, 0, -sideLength / 2f * diceSpacing) + new Vector3(diceSpacing / 2f, 0, diceSpacing / 2f);
+        Vector3 startPos = transform.position + new Vector3(-sideLength / 2f * _diceSpacing, 0, -sideLength / 2f * _diceSpacing) + new Vector3(_diceSpacing / 2f, 0, _diceSpacing / 2f);
         int indx = 0;
         for (int i = 0; i < sideLength; i++)
         {
             for (int j = 0; j < sideLength; j++)
             {
-                Vector3 pos = startPos + new Vector3(j * diceSpacing, 0, i * diceSpacing);
+                Vector3 pos = startPos + new Vector3(j * _diceSpacing, 0, i * _diceSpacing);
                 _dicePool[indx].SetStartPos(pos);
                 indx++;
                 if(indx >= _dicePool.Count) return;
@@ -161,7 +159,7 @@ public class Dice3DManager : MonoBehaviour
         BoxCollider box = GetComponent<BoxCollider>();
         
         int size = Mathf.CeilToInt(Mathf.Sqrt(_dicePool.Count));
-        box.size = new Vector3(size*diceSpacing*1.2f, 0.5f, size*diceSpacing*1.2f);
+        box.size = new Vector3(size*_diceSpacing*1.2f, 0.5f, size*_diceSpacing*1.2f);
         box.center = new Vector3(0, -1f, 0);
     }
 }

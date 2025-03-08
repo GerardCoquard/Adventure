@@ -8,23 +8,12 @@ public class DiceManager : MonoBehaviour
 {
     public static DiceManager instance;
     
-    [SerializeField] private List<Sprite> _diceSprites;
     [SerializeField] private GameObject _diceRollPrefab;
     [SerializeField] private Transform _initiativesHolder;
-    private Dictionary<Dice, Sprite> _diceSpritesDictionary;
 
     private void Awake()
     {
         instance = this;
-        
-        _diceSpritesDictionary = new Dictionary<Dice, Sprite>();
-        int indx = 0;
-        foreach (int i in Enum.GetValues(typeof(Dice)))
-        {
-            _diceSpritesDictionary.Add((Dice)i,_diceSprites[indx]);
-            indx++;
-        }
-            
     }
 
     public int RollWithVisuals(DiceAmount diceAmount, int bonus, Vector2 position)
@@ -40,8 +29,8 @@ public class DiceManager : MonoBehaviour
         }
 
         total += bonus;
-        Roll roll = Instantiate(_diceRollPrefab, Camera.main.WorldToScreenPoint(position), Quaternion.identity, _initiativesHolder).GetComponent<Roll>();
-        roll.RollDices(diceAmount, results, bonus, total, _diceSpritesDictionary[diceAmount.dice]);
+        Roll3D roll = Instantiate(_diceRollPrefab, Camera.main.WorldToScreenPoint(position), Quaternion.identity, _initiativesHolder).GetComponent<Roll3D>();
+        roll.RollDices(diceAmount, results, bonus, total);
         return total;
     }
     
@@ -71,4 +60,16 @@ public enum Dice
     D10=10,
     D12=12,
     D20=20
+}
+
+[Serializable]
+public struct DiceAmount
+{
+    public DiceAmount(int _amount, Dice _dice)
+    {
+        dice = _dice;
+        amount = _amount;
+    }
+    public int amount;
+    public Dice dice;
 }

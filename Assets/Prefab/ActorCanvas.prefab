@@ -89,7 +89,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6368809212942227006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +126,11 @@ MonoBehaviour:
   _manaBar: {fileID: 3930925000154150616}
   _manaText: {fileID: 8182161552673932135}
   _diceThrowPosition: {fileID: 8755407517682006829}
+  _buffDisplayPrefab: {fileID: 0}
+  _buffHitHolder: {fileID: 0}
+  _buffFNPHolder: {fileID: 0}
+  _buffThreatHolder: {fileID: 0}
+  _buffMagicDefenseHolder: {fileID: 0}
 --- !u!1 &1891538671373103503
 GameObject:
   m_ObjectHideFlags: 0
