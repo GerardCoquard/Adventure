@@ -17,7 +17,7 @@ public class TargetDisplay : MonoBehaviour
 
     private void Start()
     {
-        TargetManager.OnAbilitySelected += OnAbilitySelected;
+        TargetSelector.OnAbilitySelected += OnAbilitySelected;
     }
 
     public void OnAbilitySelected(Ability ability)

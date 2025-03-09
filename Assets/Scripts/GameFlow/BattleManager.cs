@@ -11,9 +11,9 @@ public class BattleManager : MonoBehaviour
     public static Action OnBattleEnd;
     public static Action OnPlayerLost;
     
-    private List<ActorInput> _battleActors = new List<ActorInput>();
+    private List<ActorTurn> _battleActors = new List<ActorTurn>();
     private List<Actor> _enemyActors = new List<Actor>();
-    private ActorInput _currentActorTurn;
+    private ActorTurn _currentActorTurn;
     
     [SerializeField] private float _turnDelay;
     [SerializeField] private Transform _enemiesHolder;
@@ -41,7 +41,7 @@ public class BattleManager : MonoBehaviour
     private void StartBattle(List<EnemyData> enemies)
     {
         DestroyPreviousActors();
-        _battleActors = new List<ActorInput>();
+        _battleActors = new List<ActorTurn>();
         _enemyActors = new List<Actor>();
         LoadEnemyActors(enemies);
         LoadPlayerActors();
@@ -65,7 +65,7 @@ public class BattleManager : MonoBehaviour
         {
             ActorEnemy enemyActor = Instantiate(enemy.prefab, positions[indx], Quaternion.identity, _enemiesHolder).GetComponent<ActorEnemy>();
             enemyActor.InitializeActor(enemy.enemyStats, enemy._name);
-            _battleActors.Add(enemyActor.GetComponent<ActorInput>());
+            _battleActors.Add(enemyActor.GetComponent<ActorTurn>());
             _enemyActors.Add(enemyActor);
             indx++;
         }
@@ -77,7 +77,7 @@ public class BattleManager : MonoBehaviour
         foreach (ActorPlayer player in playerActors)
         {
             if(player.IsAlive())
-                _battleActors.Add(player.GetComponent<ActorInput>());
+                _battleActors.Add(player.GetComponent<ActorTurn>());
         }
     }
 
@@ -117,7 +117,7 @@ public class BattleManager : MonoBehaviour
 
     private void ThrowInitiatives()
     {
-        foreach (ActorInput battleActor in _battleActors)
+        foreach (ActorTurn battleActor in _battleActors)
         {
             Actor actor = battleActor.GetActor();
             battleActor.SetInitiative(DiceManager.instance.RollWithVisuals(actor.GetInitiative(), actor.GetInitiativeBonus(), actor.GetDicePosition())); //CHANGE INITIATIVE BONUS
@@ -153,14 +153,14 @@ public class BattleManager : MonoBehaviour
 
     public void RemoveActor(Actor actor)
     {
-        ActorInput actorInput = actor.GetComponent<ActorInput>();
-        if (actorInput == _currentActorTurn)
+        ActorTurn actorTurn = actor.GetComponent<ActorTurn>();
+        if (actorTurn == _currentActorTurn)
             _currentActorTurn = _battleActors.First() == _currentActorTurn ? _battleActors.Last() : _battleActors[_battleActors.IndexOf(_currentActorTurn)-1];
         
-        _battleActors.Remove(actorInput);
+        _battleActors.Remove(actorTurn);
         
-        if (_enemyActors.Contains(actorInput.GetActor()))
-            _enemyActors.Remove(actorInput.GetActor());
+        if (_enemyActors.Contains(actorTurn.GetActor()))
+            _enemyActors.Remove(actorTurn.GetActor());
 
         UpdateTurnPositions();
     }

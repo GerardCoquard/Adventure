@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
 
-public class PlayerActorInput : ActorInput
+public class PlayerActorTurn : ActorTurn
 {
     private bool turnActive;
     public override void StartTurn()
     {
         base.StartTurn();
+        AbilityManager.instance.SetActorTurn(this);
         turnActive = true;
     }
 
@@ -18,24 +19,10 @@ public class PlayerActorInput : ActorInput
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && turnActive)
-            EndTurn();
-
         if (Input.GetKeyDown(KeyCode.K) && turnActive)
         {
             _actor.OnDie();
             EndTurn();
         }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha1) && turnActive)
-        {
-            SelectAbility(_actor.GetAbilities()[0]);
-        }
-            
-    }
-
-    public void SelectAbility(Ability ability)
-    {
-        TargetManager.instance.StartSelectingTargetsPlayer(ability);
     }
 }

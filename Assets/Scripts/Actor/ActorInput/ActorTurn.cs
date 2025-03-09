@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActorInput : MonoBehaviour
+public abstract class ActorTurn : MonoBehaviour
 {
     [SerializeField] protected Transform _turnIndicatorPosition;
     protected int _lastInitiativeRoll;

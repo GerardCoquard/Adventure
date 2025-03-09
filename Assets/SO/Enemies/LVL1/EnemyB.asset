@@ -21,20 +21,22 @@ MonoBehaviour:
     mind: 2
     resistance: 2
     healthDice: 10
-    initiativeDice: 12
+    healthFixedAmount: 0
     manaDice: 6
+    manaFixedAmount: 0
+    initiativeDice: 12
+    initiativeBonus: 2
     attacks: 2
     magicResistance: 2
+    actionAmount: 0
+    bonusActionAmount: 0
     weapon:
       damage: 1
       threat: 1
-      info:
-        name: asd
-        icon: {fileID: 0}
+      icon: {fileID: 0}
     armor:
       defense: 2
       mana: -2
       threat: -1
-      info:
-        name: asdsdasd
-        icon: {fileID: 0}
+      icon: {fileID: 0}
+    abilities: []

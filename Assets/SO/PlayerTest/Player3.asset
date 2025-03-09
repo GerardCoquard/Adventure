@@ -39,4 +39,6 @@ MonoBehaviour:
       mana: -1
       threat: 0
       icon: {fileID: 0}
-    abilities: []
+    abilities:
+    - _ability: {fileID: 11400000, guid: 839f417333cec6a48a7cdc9c2f0a2106, type: 2}
+      weight: 0

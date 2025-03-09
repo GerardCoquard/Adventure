@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetManager : MonoBehaviour
+public class TargetSelector : MonoBehaviour
 {
-    public static TargetManager instance;
+    public static TargetSelector instance;
 
     public static Action<Ability> OnAbilitySelected;
     public static Action OnAbilityCanceled;

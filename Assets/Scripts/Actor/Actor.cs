@@ -96,6 +96,36 @@ public abstract class Actor : MonoBehaviour
         return 5 + _equipment.GetArmor().defense;//Add Buffs
     }
 
+    public int GetCurrentMana()
+    {
+        return _currentMana;
+    }
+    
+    public void RemoveMana(int amount)
+    {
+        _currentMana = Mathf.Clamp(_currentMana - amount,0,_mana);
+    }
+    
+    public int GetCurrentActions()
+    {
+        return _currentActionAmount;
+    }
+    
+    public void RemoveActions(int amount)
+    {
+        _currentActionAmount = Mathf.Clamp(_currentActionAmount - amount,0,GetActionAmount());
+    }
+    
+    public int GetCurrentBonusActions()
+    {
+        return _currentBonusActionAmount;
+    }
+    
+    public void RemoveBonusActions(int amount)
+    {
+        _currentBonusActionAmount = Mathf.Clamp(_currentBonusActionAmount - amount,0,GetBonusActionAmount());
+    }
+
     public virtual void AddManaOnLevelUp()
     {
         _lastManaAdded = DiceManager.instance.Roll(GetManaDice()) + GetMind();

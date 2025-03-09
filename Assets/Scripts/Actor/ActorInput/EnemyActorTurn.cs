@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyActorInput : ActorInput
+public class EnemyActorTurn : ActorTurn
 {
     [SerializeField] private float turnDuration;
     
