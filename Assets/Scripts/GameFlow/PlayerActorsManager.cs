@@ -9,12 +9,16 @@ public class PlayerActorsManager : MonoBehaviour
     
     private List<ActorPlayer> _playerActors = new List<ActorPlayer>();
     [SerializeField] private Transform _actorsHolder;
-    [SerializeField] private List<EnemyData> _playerDatas = new List<EnemyData>();//TO DELETE IN FUTURE
+    [SerializeField] private bool _customLoad;
+    [SerializeField] private List<EnemyData> _customPlayerDatas = new List<EnemyData>();
 
     private void Awake()
     {
         instance = this;
-        LoadPlayerActors();
+        if(_customLoad)
+            LoadPlayerActorsCustom();
+        else
+            LoadPlayerActors();
     }
 
     private void Start()
@@ -27,17 +31,22 @@ public class PlayerActorsManager : MonoBehaviour
         GameManager.OnLevelStarted -= ResetActors;
     }
 
-    private void LoadPlayerActors()
+    private void LoadPlayerActorsCustom()
     {
-        List<Vector2> positions = GridManager.instance.GetPlayerPositions(_playerDatas.Count);
+        List<Vector2> positions = GridManager.instance.GetPlayerPositions(_customPlayerDatas.Count);
         int indx = 0;
-        foreach (EnemyData player in _playerDatas)
+        foreach (EnemyData player in _customPlayerDatas)
         {
             ActorPlayer playerActor = Instantiate(player.prefab, positions[indx], Quaternion.identity, _actorsHolder).GetComponent<ActorPlayer>();
-            playerActor.InitializeActor(player.enemyStats, player._name);
+            playerActor.InitializeActorCustom(player.enemyStats, player._name);
             _playerActors.Add(playerActor);
             indx++;
         }
+    }
+    
+    private void LoadPlayerActors()
+    {
+        
     }
 
     public List<ActorPlayer> GetPlayerActors()

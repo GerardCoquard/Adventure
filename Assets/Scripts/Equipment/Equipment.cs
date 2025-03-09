@@ -26,4 +26,9 @@ public class Equipment : MonoBehaviour
     {
         _armor = armor;
     }
+
+    public int GetThreat()
+    {
+        return _armor.threat + _weapon.threat;
+    }
 }

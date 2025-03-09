@@ -120,7 +120,7 @@ public class BattleManager : MonoBehaviour
         foreach (ActorInput battleActor in _battleActors)
         {
             Actor actor = battleActor.GetActor();
-            battleActor.SetInitiative(DiceManager.instance.RollWithVisuals(actor.GetInitiative(), 0, actor.GetDicePosition())); //CHANGE INITIATIVE BONUS
+            battleActor.SetInitiative(DiceManager.instance.RollWithVisuals(actor.GetInitiative(), actor.GetInitiativeBonus(), actor.GetDicePosition())); //CHANGE INITIATIVE BONUS
         }
         
         _battleActors = _battleActors.OrderByDescending(a => a.GetInitiative()).ToList();

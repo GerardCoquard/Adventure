@@ -16,13 +16,14 @@ public struct EnemyStats
     public Dice manaDice;
     public int manaFixedAmount;
     public Dice initiativeDice;
+    public int initiativeBonus;
     public int attacks;
     public int magicResistance;
     public int actionAmount;
     public int bonusActionAmount;
     [Header("Equipment")]
-    public int damage;
-    public int armor;
+    public Weapon weapon;
+    public Armor armor;
     [Header("Abilities")]
-    public List<EnemyAbility> _abilities;
+    public List<EnemyAbility> abilities;
 }

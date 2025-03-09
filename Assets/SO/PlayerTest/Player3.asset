@@ -21,20 +21,22 @@ MonoBehaviour:
     mind: 1
     resistance: 1
     healthDice: 4
-    initiativeDice: 6
+    healthFixedAmount: 0
     manaDice: 6
+    manaFixedAmount: 0
+    initiativeDice: 6
+    initiativeBonus: 1
     attacks: 1
     magicResistance: 2
+    actionAmount: 0
+    bonusActionAmount: 0
     weapon:
       damage: 1
       threat: 1
-      info:
-        name: Claws
-        icon: {fileID: 0}
+      icon: {fileID: 0}
     armor:
       defense: 2
       mana: -1
       threat: 0
-      info:
-        name: Armor of Contempt
-        icon: {fileID: 0}
+      icon: {fileID: 0}
+    abilities: []

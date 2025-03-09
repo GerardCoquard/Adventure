@@ -2268,7 +2268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actorsHolder: {fileID: 1003998559}
-  _playerDatas:
+  _customLoad: 1
+  _customPlayerDatas:
   - {fileID: 11400000, guid: 237e72f17ee71c342b5adbd6682d9b6b, type: 2}
   - {fileID: 11400000, guid: 56c6145c2a2f60c48b13307a028c1fe4, type: 2}
   - {fileID: 11400000, guid: d48ecd1424e5fd34b8b9956cd3943b2a, type: 2}

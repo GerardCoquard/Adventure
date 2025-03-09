@@ -11,8 +11,8 @@ public class ActorEnemy : Actor
     {
         _stats = stats;
         _actorName = actorName;
-        _equipment.SetWeapon(new Weapon(_stats.damage));
-        _equipment.SetArmor(new Armor(_stats.armor));
+        _equipment.SetWeapon(_stats.weapon);
+        _equipment.SetArmor(_stats.armor);
         LevelUpActor();
         ResetActor();
     }
@@ -57,6 +57,11 @@ public class ActorEnemy : Actor
     public override Dice GetInitiativeDice()
     {
         return _stats.initiativeDice;
+    }
+    
+    public override int GetInitiativeBonus()
+    {
+        return _stats.initiativeBonus;
     }
 
     public override int GetAttacks()

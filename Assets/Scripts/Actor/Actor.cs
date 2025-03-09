@@ -46,6 +46,8 @@ public abstract class Actor : MonoBehaviour
     
     public abstract Dice GetInitiativeDice();
     
+    public abstract int GetInitiativeBonus();
+    
     public abstract int GetAttacks();
 
     public abstract int GetMagicResistance();
@@ -81,7 +83,7 @@ public abstract class Actor : MonoBehaviour
     
     public virtual DiceAmount GetInitiative()
     {
-        return new DiceAmount(GetCombat(), GetInitiativeDice());//Add Buffs
+        return new DiceAmount(GetCombat(), GetInitiativeDice());
     }
     
     public virtual int GetDamage()
@@ -89,27 +91,37 @@ public abstract class Actor : MonoBehaviour
         return _equipment.GetWeapon().damage;//Add Buffs
     }
 
-    public virtual int GetArmor()
+    public virtual int GetDefense()
     {
         return 5 + _equipment.GetArmor().defense;//Add Buffs
     }
 
-    public virtual void AddMana()
+    public virtual void AddManaOnLevelUp()
     {
         _lastManaAdded = DiceManager.instance.Roll(GetManaDice()) + GetMind();
         _mana += _lastManaAdded;
     }
     
-    public virtual void AddHealth()
+    public virtual void AddMana(int amount)
+    {
+        _mana += amount;
+    }
+    
+    public virtual void AddHealthOnLevelUp()
     {
         _lastHealthAdded = DiceManager.instance.Roll(GetHealthDice()) + GetResistance();
         _health += _lastHealthAdded;
     }
+    
+    public virtual void AddHealth(int amount)
+    {
+        _health += amount;
+    }
 
     public virtual void AddLevel()
     {
-        AddHealth();
-        AddMana();
+        AddHealthOnLevelUp();
+        AddManaOnLevelUp();
     }
     
     public virtual void AddFirstLevel()
