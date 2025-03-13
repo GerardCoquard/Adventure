@@ -16,22 +16,22 @@ public class DiceManager : MonoBehaviour
         instance = this;
     }
 
-    public int RollWithVisuals(DiceAmount diceAmount, int bonus, Vector2 position)
+    public Roll3D RollWithVisuals(DiceAmount diceAmount, int bonus, Vector2 position, out int result)
     {
-        int total = 0;
+        result = 0;
         int[] results = new int[diceAmount.amount];
         
         for (int i = 0; i < diceAmount.amount; i++)
         {
-            int result = Random.Range(1, (int)diceAmount.dice+1);
-            results[i] = result;
-            total += result;
+            int diceResult = Random.Range(1, (int)diceAmount.dice+1);
+            results[i] = diceResult;
+            result += diceResult;
         }
 
-        total += bonus;
+        result += bonus;
         Roll3D roll = Instantiate(_diceRollPrefab, Camera.main.WorldToScreenPoint(position), Quaternion.identity, _initiativesHolder).GetComponent<Roll3D>();
-        roll.RollDices(diceAmount, results, bonus, total);
-        return total;
+        roll.RollDices(diceAmount, results, bonus, result);
+        return roll;
     }
     
     public int Roll(DiceAmount diceAmount)

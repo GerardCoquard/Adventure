@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
     private List<ActorTurn> _battleActors = new List<ActorTurn>();
     private List<Actor> _enemyActors = new List<Actor>();
     private ActorTurn _currentActorTurn;
+    private InitiativesInstance _currentInitiativesThrow;
     
     [SerializeField] private float _turnDelay;
     [SerializeField] private Transform _enemiesHolder;
@@ -46,7 +47,7 @@ public class BattleManager : MonoBehaviour
         LoadEnemyActors(enemies);
         LoadPlayerActors();
         HideTurnPositions();
-        StartCoroutine(ThrowInitiativesAndStartFirstTurn());
+        ThrowInitiatives();
     }
 
     private void DestroyPreviousActors()
@@ -117,19 +118,16 @@ public class BattleManager : MonoBehaviour
 
     private void ThrowInitiatives()
     {
-        foreach (ActorTurn battleActor in _battleActors)
-        {
-            Actor actor = battleActor.GetActor();
-            battleActor.SetInitiative(DiceManager.instance.RollWithVisuals(actor.GetInitiative(), actor.GetInitiativeBonus(), actor.GetDicePosition())); //CHANGE INITIATIVE BONUS
-        }
-        
+        _currentInitiativesThrow = new InitiativesInstance(_battleActors);
+        _currentInitiativesThrow.OnInitiativesEnded += () => StartCoroutine(SetFirstTurn());
         _battleActors = _battleActors.OrderByDescending(a => a.GetInitiative()).ToList();
     }
 
-    IEnumerator ThrowInitiativesAndStartFirstTurn()
+    IEnumerator SetFirstTurn()
     {
-        ThrowInitiatives();
         yield return new WaitForSeconds(_timeToSeeInitiatives);
+        _currentInitiativesThrow.DeleteInitiatives();
+        _currentInitiativesThrow = null;
         UpdateTurnPositions();
         _currentActorTurn = _battleActors.First();
         SetUpTurn();

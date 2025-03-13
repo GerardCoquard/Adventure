@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class AbilityManager : MonoBehaviour
     
     [SerializeField] private List<AbilitySlotUI> _slots;
     [SerializeField] private GameObject _skipTurnButton;
+    [SerializeField] private TextMeshProUGUI _actions;
+    [SerializeField] private TextMeshProUGUI _bonusActions;
 
     private ActorTurn _currentActorTurn;
 
@@ -28,6 +31,9 @@ public class AbilityManager : MonoBehaviour
         _currentActorTurn = actorTurn;
         SetAbilitySlots();
         _skipTurnButton.SetActive(true);
+        _actions.gameObject.SetActive(true);
+        _bonusActions.gameObject.SetActive(true);
+        UpdateResources();
     }
 
     private void SetAbilitySlots()
@@ -61,8 +67,14 @@ public class AbilityManager : MonoBehaviour
         _currentActorTurn.GetActor().RemoveMana(ability.manaCost);
         _currentActorTurn.GetActor().RemoveActions(ability.actionCost);
         _currentActorTurn.GetActor().RemoveBonusActions(ability.bonusActionCost);
-        
+        UpdateResources();
         //Use ability
+    }
+
+    private void UpdateResources()
+    {
+        _actions.text = _currentActorTurn.GetActor().GetCurrentActions().ToString();
+        _bonusActions.text = _currentActorTurn.GetActor().GetCurrentBonusActions().ToString();
     }
 
     private void DisableUI()
@@ -73,5 +85,7 @@ public class AbilityManager : MonoBehaviour
         }
         
         _skipTurnButton.SetActive(false);
+        _actions.gameObject.SetActive(false);
+        _bonusActions.gameObject.SetActive(false);
     }
 }

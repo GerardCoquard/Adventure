@@ -14,10 +14,11 @@ public class Roll3D : MonoBehaviour
     [SerializeField] private float _startTime;
     [SerializeField] private float _timeToShowNumber;
     [SerializeField] private float _resultDelay;
-    [SerializeField] private float _timeToDestroy;
     private int _diceCount;
     private int _stoppedDiceCount;
     private List<Dice3D> _diceList;
+
+    public Action OnResultShown;
     
     public void RollDices(DiceAmount diceAmount, int[] results, int bonus, int total)
     {
@@ -67,9 +68,12 @@ public class Roll3D : MonoBehaviour
         }
         
         _totalText.alpha = 1;
+        
+        OnResultShown?.Invoke();
+    }
 
-        yield return new WaitForSeconds(_timeToDestroy);
-
+    public void DeleteRoll()
+    {
         foreach (Dice3D dice in _diceList)
         {
             dice.DisableDice();
