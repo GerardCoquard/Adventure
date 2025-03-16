@@ -8,7 +8,7 @@ public class ActorBuffs : MonoBehaviour
     private ActorDisplay _actorDisplay;
     
     private List<BuffData> _hitBuffs = new List<BuffData>();
-    private List<BuffData> _feelNoPainBuffs = new List<BuffData>();
+    private List<BuffData> _woundBuffs = new List<BuffData>();
     private List<BuffData> _threatBuffs = new List<BuffData>();
     private List<BuffData> _magicDefenseBuffs = new List<BuffData>();
 
@@ -39,10 +39,10 @@ public class ActorBuffs : MonoBehaviour
         _actorDisplay.AddHitBuff(buff);
     }
     
-    public void AddFeelNoPainBuff(BuffData buff)
+    public void AddWoundBuff(BuffData buff)
     {
-        _feelNoPainBuffs.Add(buff);
-        _actorDisplay.AddFeelNoPainBuff(buff);
+        _woundBuffs.Add(buff);
+        _actorDisplay.AddWoundBuff(buff);
     }
     
     public void AddThreatBuff(BuffData buff)
@@ -69,11 +69,11 @@ public class ActorBuffs : MonoBehaviour
         return amount;
     }
     
-    public int GetFeelNoPainBuff()
+    public int GetWoundBuff()
     {
         int amount = 0;
 
-        foreach (BuffData buff in _feelNoPainBuffs)
+        foreach (BuffData buff in _woundBuffs)
         {
             amount += buff.amount;
         }

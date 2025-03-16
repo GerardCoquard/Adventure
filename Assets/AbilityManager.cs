@@ -62,7 +62,7 @@ public class AbilityManager : MonoBehaviour
         TargetSelector.instance.StartSelectingTargetsPlayer(slot.GetAbility());
     }
 
-    public void UseAbility(Ability ability)
+    public void UseAbility(Ability ability, List<Actor> targets)
     {
         _currentActorTurn.GetActor().RemoveMana(ability.manaCost);
         _currentActorTurn.GetActor().RemoveActions(ability.actionCost);

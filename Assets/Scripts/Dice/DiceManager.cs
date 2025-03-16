@@ -40,7 +40,7 @@ public class DiceManager : MonoBehaviour
         
         for (int i = 0; i < diceAmount.amount; i++)
         {
-            int result = Random.Range(1, (int)diceAmount.dice+1);
+            int result = Roll(diceAmount.dice);;
             total += result;
         }
         return total;
@@ -49,6 +49,19 @@ public class DiceManager : MonoBehaviour
     public int Roll(Dice dice)
     {
         return Random.Range(1, (int)dice+1);
+    }
+
+    public int RollAndKeep(DiceAmount diceAmount, int threshold)
+    {
+        int keeped = 0;
+        
+        for (int i = 0; i < diceAmount.amount; i++)
+        {
+            if(Roll(diceAmount.dice) >= threshold)
+                keeped++;
+        }
+
+        return keeped;
     }
 }
 

@@ -16,7 +16,7 @@ public class ActorDisplay : MonoBehaviour
     [Header("Buffs")]
     [SerializeField] private GameObject _buffDisplayPrefab;
     [SerializeField] private Transform _buffHitHolder;
-    [SerializeField] private Transform _buffFNPHolder;
+    [SerializeField] private Transform _buffWoundHolder;
     [SerializeField] private Transform _buffThreatHolder;
     [SerializeField] private Transform _buffMagicDefenseHolder;
 
@@ -59,9 +59,9 @@ public class ActorDisplay : MonoBehaviour
         CreateBuffDisplay(buff, _buffHitHolder);
     }
     
-    public void AddFeelNoPainBuff(BuffData buff)
+    public void AddWoundBuff(BuffData buff)
     {
-        CreateBuffDisplay(buff, _buffFNPHolder);
+        CreateBuffDisplay(buff, _buffWoundHolder);
     }
     
     public void AddThreatBuff(BuffData buff)

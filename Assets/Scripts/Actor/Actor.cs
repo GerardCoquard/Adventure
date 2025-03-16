@@ -121,6 +121,16 @@ public abstract class Actor : MonoBehaviour
         return _currentBonusActionAmount;
     }
     
+    public int GetHitBuff()
+    {
+        return _actorBuffs.GetHitBuff();
+    }
+    
+    public int GetWoundBuff()
+    {
+        return _actorBuffs.GetWoundBuff();
+    }
+    
     public void RemoveBonusActions(int amount)
     {
         _currentBonusActionAmount = Mathf.Clamp(_currentBonusActionAmount - amount,0,GetBonusActionAmount());

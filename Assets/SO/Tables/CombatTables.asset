@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd48d64dda148c440b270733d844eaff, type: 3}
+  m_Name: CombatTables
+  m_EditorClassIdentifier: 
+  hit:
+  - value: 0
+    diceNeeded: 2
+  - value: 1
+    diceNeeded: 3
+  - value: 2
+    diceNeeded: 4
+  - value: 4
+    diceNeeded: 5
+  - value: 7
+    diceNeeded: 6
+  - value: 12
+    diceNeeded: 7
+  - value: 20
+    diceNeeded: 8
+  wound1to2:
+  - value: 1
+    diceNeeded: 9
+  - value: 2
+    diceNeeded: 9
+  - value: 3
+    diceNeeded: 8
+  - value: 4
+    diceNeeded: 8
+  - value: 5
+    diceNeeded: 7
+  - value: 6
+    diceNeeded: 7
+  - value: 7
+    diceNeeded: 6
+  - value: 8
+    diceNeeded: 6
+  - value: 9
+    diceNeeded: 5
+  - value: 10
+    diceNeeded: 5
+  - value: 11
+    diceNeeded: 4
+  - value: 12
+    diceNeeded: 4
+  - value: 13
+    diceNeeded: 3
+  - value: 14
+    diceNeeded: 3
+  - value: 15
+    diceNeeded: 2
+  - value: 16
+    diceNeeded: 2
+  wound3to5:
+  - value: 1
+    diceNeeded: 9
+  - value: 2
+    diceNeeded: 9
+  - value: 3
+    diceNeeded: 9
+  - value: 4
+    diceNeeded: 9
+  - value: 5
+    diceNeeded: 9
+  - value: 6
+    diceNeeded: 9
+  - value: 7
+    diceNeeded: 8
+  - value: 8
+    diceNeeded: 8
+  - value: 9
+    diceNeeded: 7
+  - value: 10
+    diceNeeded: 7
+  - value: 11
+    diceNeeded: 6
+  - value: 12
+    diceNeeded: 6
+  - value: 13
+    diceNeeded: 5
+  - value: 14
+    diceNeeded: 5
+  - value: 15
+    diceNeeded: 4
+  - value: 16
+    diceNeeded: 4
+  wound6to8:
+  - value: 1
+    diceNeeded: 9
+  - value: 2
+    diceNeeded: 9
+  - value: 3
+    diceNeeded: 9
+  - value: 4
+    diceNeeded: 9
+  - value: 5
+    diceNeeded: 9
+  - value: 6
+    diceNeeded: 9
+  - value: 7
+    diceNeeded: 9
+  - value: 8
+    diceNeeded: 9
+  - value: 9
+    diceNeeded: 8
+  - value: 10
+    diceNeeded: 8
+  - value: 11
+    diceNeeded: 7
+  - value: 12
+    diceNeeded: 7
+  - value: 13
+    diceNeeded: 6
+  - value: 14
+    diceNeeded: 6
+  - value: 15
+    diceNeeded: 5
+  - value: 16
+    diceNeeded: 5
