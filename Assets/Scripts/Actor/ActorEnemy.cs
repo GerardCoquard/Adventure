@@ -87,6 +87,11 @@ public class ActorEnemy : Actor
     public override void OnDie()
     {
         BattleManager.instance.RemoveActor(this);
-        Destroy(gameObject);
+        _currentHealth -= _currentHealth;//DELETE
+        _currentMana -= _currentMana;//DELETE?
+        SetTurn(0);
+        _display.SetHealth(_currentHealth, _health);
+        _display.SetMana(_currentMana, _mana);
+        //No targeteable for abilities
     }
 }

@@ -31,7 +31,9 @@ public class TargetSelector : MonoBehaviour
 
     private void Update()
     {
-        if(_currentAbility != null)
+        if(_currentAbility == null)
+            return;
+        
         if(Input.GetKeyDown(KeyCode.Escape))
             OnEscapePressed?.Invoke();
         if (Input.GetMouseButtonDown(0))
@@ -74,9 +76,9 @@ public class TargetSelector : MonoBehaviour
 
     private void CheckSelection()
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _whatIsActor))
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, _whatIsActor);
+        if (hit.collider != null)
         {
             Actor actor = hit.collider.GetComponentInParent<Actor>();
             if(ValidTarget(actor))
@@ -108,7 +110,7 @@ public class TargetSelector : MonoBehaviour
 
     private bool ValidTarget(Actor actor)
     {
-        bool isAlly = (ActorEnemy)actor == null;
+        bool isAlly = actor as ActorEnemy == null;
         return (isAlly && _currentAbility.targetTeam == Team.Self) ||
                (!isAlly && _currentAbility.targetTeam == Team.Other);
     }

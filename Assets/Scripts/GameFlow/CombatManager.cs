@@ -8,7 +8,6 @@ public class CombatManager : MonoBehaviour
 {
     public static CombatManager instance;
 
-    [SerializeField] private CombatDisplay _combatDisplay;
     [SerializeField] private CombatTables _tables;
 
     private void Awake()
@@ -26,6 +25,7 @@ public class CombatManager : MonoBehaviour
         modifier = GetWoundModifier(attacker.GetDamage() + abilityBuffs.extraDamage, defender.GetResistance());
         modifier += attacker.GetWoundBuff();
         diceAmount.amount = DiceManager.instance.RollAndKeep(diceAmount,modifier);
+        defender.TakeDamage(diceAmount.amount * (attacker.GetDamage() + abilityBuffs.extraDamage));
     }
     
     public void StartMagicCombat()

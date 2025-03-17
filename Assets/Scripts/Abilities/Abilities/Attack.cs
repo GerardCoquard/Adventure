@@ -9,9 +9,6 @@ public class Attack : Ability
     public override void OnActivated(List<Actor> targets, Actor self)
     {
         Actor target = targets.First();
-        for (int i = 0; i < self.GetAttacks(); i++)
-        {
-            target.TakeDamage(self.GetDamage());
-        }
+        CombatManager.instance.StartCombat(self,target);
     }
 }

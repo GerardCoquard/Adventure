@@ -158,9 +158,6 @@ public class BattleManager : MonoBehaviour
             _currentActorTurn = _battleActors.First() == _currentActorTurn ? _battleActors.Last() : _battleActors[_battleActors.IndexOf(_currentActorTurn)-1];
         
         _battleActors.Remove(actorTurn);
-        
-        if (_enemyActors.Contains(actorTurn.GetActor()))
-            _enemyActors.Remove(actorTurn.GetActor());
 
         UpdateTurnPositions();
     }

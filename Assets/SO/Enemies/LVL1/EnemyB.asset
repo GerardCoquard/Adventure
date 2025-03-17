@@ -17,9 +17,9 @@ MonoBehaviour:
   positioningLevel: 1
   enemyStats:
     level: 7
-    combat: 2
-    mind: 2
-    resistance: 2
+    combat: 1
+    mind: 1
+    resistance: 1
     healthDice: 10
     healthFixedAmount: 0
     manaDice: 6

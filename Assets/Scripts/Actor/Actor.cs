@@ -104,6 +104,7 @@ public abstract class Actor : MonoBehaviour
     public void RemoveMana(int amount)
     {
         _currentMana = Mathf.Clamp(_currentMana - amount,0,_mana);
+        _display.SetMana(_currentMana, _mana);
     }
     
     public int GetCurrentActions()
@@ -144,7 +145,9 @@ public abstract class Actor : MonoBehaviour
     
     public virtual void AddMana(int amount)
     {
-        _mana += amount;
+        _currentMana += amount;
+        _currentMana = Mathf.Clamp(_currentMana, 0, _mana);
+        _display.SetMana(_currentMana,_mana);
     }
     
     public virtual void AddHealthOnLevelUp()
@@ -155,7 +158,9 @@ public abstract class Actor : MonoBehaviour
     
     public virtual void AddHealth(int amount)
     {
-        _health += amount;
+        _currentHealth += amount;
+        _currentHealth = Mathf.Clamp(_currentHealth, 0, _health);
+        _display.SetHealth(_currentHealth,_health);
     }
 
     public virtual void AddLevel()
@@ -187,6 +192,9 @@ public abstract class Actor : MonoBehaviour
     public virtual void TakeDamage(int amount)
     {
         _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, _health);
+        _display.SetHealth(_currentHealth,_health);
+        if(!IsAlive())
+            OnDie();
     }
     
     public Vector2 GetDicePosition()

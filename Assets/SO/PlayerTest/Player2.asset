@@ -17,21 +17,21 @@ MonoBehaviour:
   positioningLevel: 0
   enemyStats:
     level: 2
-    combat: 1
-    mind: 1
-    resistance: 1
+    combat: 5
+    mind: 5
+    resistance: 3
     healthDice: 4
     healthFixedAmount: 0
     manaDice: 6
     manaFixedAmount: 0
     initiativeDice: 8
     initiativeBonus: 3
-    attacks: 1
+    attacks: 5
     magicResistance: 2
     actionAmount: 3
     bonusActionAmount: 3
     weapon:
-      damage: 1
+      damage: 2
       threat: 1
       icon: {fileID: 0}
     armor:
@@ -41,4 +41,6 @@ MonoBehaviour:
       icon: {fileID: 0}
     abilities:
     - _ability: {fileID: 11400000, guid: 839f417333cec6a48a7cdc9c2f0a2106, type: 2}
+      weight: 0
+    - _ability: {fileID: 11400000, guid: 86dc35a9181f28e49b5c86f1969bd139, type: 2}
       weight: 0

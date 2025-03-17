@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class CombatDisplay : MonoBehaviour
+public class CombatDisplayDeprecated : MonoBehaviour
 {
     [SerializeField] private GameObject _tray;
     [SerializeField] private TextMeshProUGUI _attackerText;

@@ -143,6 +143,7 @@ public class ActorPlayer : Actor
         SetTurn(0);
         _display.SetHealth(_currentHealth, _health);
         _display.SetMana(_currentMana, _mana);
+        //No targeteable for abilities
         
         //TO DO
     }

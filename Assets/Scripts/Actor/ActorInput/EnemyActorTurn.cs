@@ -14,9 +14,9 @@ public class EnemyActorTurn : ActorTurn
     
     IEnumerator WaitForPassingTurn()
     {
+        int rnd = Random.Range(0, 3);
+        CombatManager.instance.StartCombat(GetActor(),PlayerActorsManager.instance.GetPlayerActors()[rnd]);
         yield return new WaitForSeconds(turnDuration);
-        if(Input.GetKey(KeyCode.K))
-            GetActor().OnDie();
         EndTurn();
     }
 }

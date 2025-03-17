@@ -71,7 +71,7 @@ public class AbilityManager : MonoBehaviour
         _currentActorTurn.GetActor().RemoveActions(ability.actionCost);
         _currentActorTurn.GetActor().RemoveBonusActions(ability.bonusActionCost);
         UpdateResources();
-        //Use ability
+        ability.OnActivated(targets,_currentActorTurn.GetActor());
     }
 
     private void UpdateResources()

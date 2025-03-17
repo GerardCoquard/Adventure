@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _turnIndicatorPosition: {fileID: 3239191110557527486}
-  turnDuration: 2
+  turnDuration: 1
 --- !u!114 &8809018473453656210
 MonoBehaviour:
   m_ObjectHideFlags: 0
