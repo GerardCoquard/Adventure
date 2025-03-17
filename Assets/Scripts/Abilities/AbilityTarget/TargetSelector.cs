@@ -65,7 +65,7 @@ public class TargetSelector : MonoBehaviour
         _targets = new List<Actor>();
     }
 
-    private void EndSelectingTargets()
+    public void EndSelectingTargets()
     {
         _currentAbility = null;
         OnAbilityCanceled?.Invoke();

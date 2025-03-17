@@ -18,6 +18,9 @@ public class AbilityManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        _actions.gameObject.SetActive(false);
+        _bonusActions.gameObject.SetActive(false);
+        _skipTurnButton.SetActive(false);
     }
 
     public void SkipTurn()

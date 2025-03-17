@@ -24,12 +24,12 @@ MonoBehaviour:
     healthFixedAmount: 0
     manaDice: 6
     manaFixedAmount: 0
-    initiativeDice: 6
-    initiativeBonus: 0
+    initiativeDice: 8
+    initiativeBonus: 3
     attacks: 1
     magicResistance: 2
-    actionAmount: 0
-    bonusActionAmount: 0
+    actionAmount: 3
+    bonusActionAmount: 3
     weapon:
       damage: 1
       threat: 1

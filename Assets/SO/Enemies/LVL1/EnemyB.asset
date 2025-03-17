@@ -24,7 +24,7 @@ MonoBehaviour:
     healthFixedAmount: 0
     manaDice: 6
     manaFixedAmount: 0
-    initiativeDice: 12
+    initiativeDice: 4
     initiativeBonus: 2
     attacks: 2
     magicResistance: 2

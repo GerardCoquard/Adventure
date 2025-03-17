@@ -18,6 +18,12 @@ public class TargetDisplay : MonoBehaviour
     private Dictionary<Actor, Image> _targetsDictionary;
     private int abilityMaxTargets;
 
+
+    private void Awake()
+    {
+        Hide();
+    }
+
     private void Start()
     {
         TargetSelector.OnAbilitySelected += OnAbilitySelected;
@@ -40,6 +46,7 @@ public class TargetDisplay : MonoBehaviour
 
         _currentSelectionText.color = abilityColor;
         _currentSelectionText.text = "0/" + ability.targets;
+        _currentSelectionText.GetComponent<FollowMouse>().Follow();
         foreach (Image target in _targets)
         {
             target.color = abilityColor;
@@ -60,6 +67,7 @@ public class TargetDisplay : MonoBehaviour
         {
             Image target = _targets.FirstOrDefault(t => !t.gameObject.activeInHierarchy);
             target.gameObject.SetActive(true);
+            target.transform.position = Camera.main.WorldToScreenPoint(actor.transform.position);
             _targetsDictionary.Add(actor, target);
         }
             

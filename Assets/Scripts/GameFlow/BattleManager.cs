@@ -84,6 +84,8 @@ public class BattleManager : MonoBehaviour
 
     public void EndCurrentTurn()
     {
+        TargetSelector.instance.EndSelectingTargets();
+        
         _currentActorTurn = _battleActors.Last() == _currentActorTurn ? _battleActors.First() : _battleActors[_battleActors.IndexOf(_currentActorTurn)+1];
 
         if (CheckIfBattleEnd())
